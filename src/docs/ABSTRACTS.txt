@@ -1,0 +1,31 @@
+################################################################################
+# NOTE                                                                         #
+#                                                                              #
+# This is a line-by-line long package descripton usually append after the      #
+# pitch or acting independently. You can write as long as you want as long as  #
+# it complies to the following rules:                                          #
+#       (1) Keep it text-form only; AND                                        #
+#       (2) Max 69 characters per line (DEB, RPM, and Citation requires it);   #
+#           AND                                                                #
+#       (3) Keep it ASCII for backward compatibilities purposes.               #
+#                                                                              #
+# You should write the long description of the project repository like an      #
+# abstract: introducing, specify the problem, actions, and ends with what to   #
+# to exect from exploring it.                                                  #
+################################################################################
+#                                                                  🠳 Max       #
+################################################################################
+Dependency hell, constant updates, security nightmares, and
+geopolitical instability got you down? Don't let them derail your
+projects. Hestia offers a powerful solution: an unified, robust
+software library suite for seamless front-end and back-end
+development. With a focus on consistency, decentralization supply
+chain, and simplicity, Hestia empowers developers to build stable,
+secure applications across all platforms, from embedded systems to
+the cloud, with peace in mind.
+
+Hestia:  Develop with confidence.
+
+This specific library facilitates the kernel functions of all
+other Hestia libraries. It has zero-dependency and is
+self-contained.
