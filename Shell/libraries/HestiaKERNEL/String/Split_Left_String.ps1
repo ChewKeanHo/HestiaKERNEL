@@ -33,7 +33,8 @@ function HestiaKERNEL-Split-Left-String {
                                                         $___ignore
         [System.Collections.Generic.List[string]]$___converted = @()
         foreach ($___line in $___content) {
-                $null = $___converted.Add($(HestiaKERNEL-To-String-From-Unicode $___line))
+                $___line = HestiaKERNEL-To-String-From-Unicode $___line
+                $null = $___converted.Add($___line)
         }
 
 

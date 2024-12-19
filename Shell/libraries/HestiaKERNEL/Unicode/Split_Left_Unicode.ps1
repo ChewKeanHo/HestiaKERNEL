@@ -83,10 +83,7 @@ function HestiaKERNEL-Split-Left-Unicode {
                                 }
                                 [System.Collections.Generic.List[uint32]]$___buffer = @()
                         }
-
                         $null = $___converted.Add($___current)
-                        $null = $___list.Add([uint32[]]$___converted)
-                        [System.Collections.Generic.List[uint32]]$___converted = @()
                         continue
                 }
 

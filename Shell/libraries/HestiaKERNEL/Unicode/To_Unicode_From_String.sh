@@ -10,6 +10,7 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 . "${LIBS_HESTIA}/HestiaKERNEL/Errors/Error_Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_Unicode_From_UTF8.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Unicode.sh"
 
 
@@ -34,12 +35,41 @@ HestiaKERNEL_To_Unicode_From_String() {
         ___converted=""
         ___content="$1"
         while [ ! "$___content" = "" ]; do
-                ___codepoint="${___content%"${___content#?}"}"
-                ___content="${___content#${___codepoint}}"
-                ___codepoint="$(printf -- "%d" "'${___codepoint}")"
+                ___char="${___content%"${___content#?}"}"
+                ___content="${___content#${___char}}"
+                ___codepoint="$(printf -- "%d" "'${___char}")"
 
                 if [ $___codepoint -lt 0 ]; then
-                        ___codepoint=63 # encoder error - change to '?'
+                        ___codepoint=""
+
+                        if [ "$LANG" = "" ] && [ "$LC_ALL" = "" ]; then
+                                : # unknown language & encoder
+                        elif [ ! "$(type -t od)" = "" ]; then
+                                # using od byte processor
+                                ___data="$(printf -- "%s" "$___char" | od -A n -t uC)"
+
+                                ___bytes=""
+                                while [ ! "$___data" = "" ]; do
+                                        ___byte="${___data##* }"
+                                        ___data="${___data%" $___byte"}"
+                                        if [ ! "$___byte" = "" ]; then
+                                                ___bytes="${___byte}, ${___bytes}"
+                                                continue
+                                        fi
+                                done
+                                ___bytes="${___bytes%, }"
+
+                                if [ ! "${LANG%".UTF-8"}" = "$LANG" ] ||
+                                        [ ! "${LC_ALL%".UTF-8"}" = "$LC_ALL" ]; then
+                                        # encoder is UTF-8
+                                        ___codepoint="$(HestiaKERNEL_To_Unicode_From_UTF8 "$___bytes")"
+                                fi
+                        fi
+
+                        if [ "$___codepoint" = "" ]; then
+                                # unknown encoder - replace with '?'
+                                ___codepoint=63
+                        fi
                 fi
 
                 ___converted="${___converted}${___codepoint}, "

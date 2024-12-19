@@ -1,0 +1,1862 @@
+# AutomataCI - Project Configurations Data File
+################################################################################
+# WARNING: STRICTLY ONLY THESE PATTERN ARE ALLOWED:                            #
+#                                                                              #
+#             'key' = 'value: string type' # 1 line tailing comment            #
+#                                                                              #
+#                                 OR                                           #
+#                                                                              #
+#             # full line comment                                              #
+#                                                                              #
+#          Both Batch and POSIX Shell do not have sophisicated functions       #
+#          (e.g. POSIX Shell does not have array at all!).                     #
+#                                                                              #
+#          DO NOT get too creative with TOML!                                  #
+################################################################################
+####################
+# PROJECT METADATA #
+####################
+# PROJECT_SKU
+# This is the known product ID used as a command, marketing brand, etc.
+# It should be in lowercase and should not be using dash ('-'),
+# underscore ('_'), and space (' ') for maximum compatibility.
+PROJECT_SKU = 'hestiakernel'
+
+
+# PROJECT_SKU_TITLECASE
+# The titlecase version of PROJECT_SKU. Used in certain packager control scripts
+# like Homebrew. Conditions is the same as PROJECT_SKU except it is in the
+# TitleCase representation.
+PROJECT_SKU_TITLECASE = 'HestiaKERNEL'
+
+
+# PROJECT_APP_ID
+# This is the known application complying to the unique 3-parts identifier
+# (e.g. com.example.www) used in Flatpak, Google Play Store, etc. The triples
+# must be a reversed domain with no dash ('-') and underscore ('_'). For GitHub
+# projects, it's advisable to use 'io.github.[owner].[project]' format instead
+# to avoid naming conflict.
+#
+# Some examples:
+#    1. 'com.github.[USERNAME].[PROJECT]' (https://github.com/[USERNAME]/[PROJECT])
+#    2. 'com.example.app' (https://app.example.com)
+PROJECT_APP_ID = 'com.hollowaykeanho.HestiaKERNEL'
+
+
+# PRODUCT_APP_UUID
+# This is the 128-bits known application GUID code complying to:
+# (1) Microsoft GUID Format
+#       See: https://learn.microsoft.com/en-us/windows/win32/msi/guid
+# (2) RFC4412 UUID Format
+#       See: https://datatracker.ietf.org/doc/html/rfc4122
+#
+# As such, the UUID **MUST** be:
+#   1. all UPPERCASE; AND
+#   2. only in hexadecimal format (0-9-A-F); AND
+#   3. shall be retained as the first point of origin; AND
+#   4. comply to this format: {XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}
+#
+# For minimal collision, Binary wire format is preferred such that:
+#    (1) 8 octets         - UTC time in 64-bits hexadecimal format since Epoch.
+#    (2) Remaining octets - Randomized data with own definitions.
+#    (3) Shuffle each octet positions with cryptography random algorithm.
+#
+# This is commonly used in product ID like MSI packaging where it is used as the
+# UPGRADE_CODE designating a possible upgrade installation against the same
+# product line or PRODUCT ID.
+PRODUCT_APP_UUID = '627630F4-0814-C1FF-1E18-DDD50A9583DA'
+
+
+# PROJECT_NAME
+# This is the name of the product used in documentation, marketing addresses
+# etc only. For programming purposes, PROJECT_SKU is used instead.
+PROJECT_NAME = "Chew Kean Ho's HestiaKERNEL"
+
+
+# PROJECT_PITCH
+# A short elevator pitch about the project used as a short description. Max
+# Max: 60 characters.
+PROJECT_PITCH = 'The no-dependency kernel functions for all Hestia libraries.'
+
+
+# PROJECT_VERSION
+# This is to declare the current project's version. It can be used for
+# generating version declaration files (e.g. VERSION, version.go, etc). You
+# should only update this field and leave the AutomataCI to generate those
+# output files.
+#
+# In case of a release with purpose like release candidates, tlide (~) is used
+# like '0.0.1~rc1' instead of dashes (-). Some distribution ecosystem have
+# strict and reserved rules for version sorting using dashes so tlide will be
+# the best choice.
+PROJECT_VERSION = '0.0.1'
+
+
+# PROJECT_CADENCE
+# The build cadence number usually to indicate the multiple builds of the same
+# version like '12312' where some packager (e.g. RPM) will generate the final
+# version number as: '0.0.1-rc1-12312' or '0.0.1-12312'.
+#
+# When it doubt or unused, set/reset to 1 and only increment when there is an
+# actual need.
+PROJECT_CADENCE = '1'
+
+
+# PROJECT_LICENSE
+# The SPDX license tag. Refer https://spdx.org/licenses/ for finding or
+# constructing your license identifier.
+PROJECT_LICENSE = 'chewkeanho-liberal'
+
+
+# PROJECT_SCOPE
+# The ownership of the project being housed working as a scoping domain. (e.g.
+# GitHub Username|Organization Name, NPMJS scope, etc). This is required for
+# certain packages' ecosystems such as but not limited to NPM. In certain cases,
+# this field is commonly combined with PROJECT_SKU to form the full ID complying
+# to '${PROJECT_SCOPE}-${PROJECT_SKU}' pattern.
+#
+# This field shall not be left empty.
+PROJECT_SCOPE = 'chewkeanho'
+
+
+# PROJECT_CONTACT_BRAND
+# Contact Entity's short brand name. It should be in lowercase and should not be
+# using dash ('-'), underscore ('_'), and space (' ') for maximum compatibility.
+PROJECT_CONTACT_BRAND = 'chewkeanho'
+
+
+# PROJECT_CONTACT_BRAND_TITLECASE
+# The titlecase version of PROJECT_CONTACT_BRAND. Used in certain packager
+# control scripts like MSI. Conditions is the same as PROJECT_CONTACT_BRAND
+# except it is in the TitleCase representation.
+PROJECT_CONTACT_BRAND_TITLECASE = 'ChewKeanHo'
+
+
+# PROJECT_CONTACT_NAME
+# Entity's full name for inquiries.
+PROJECT_CONTACT_NAME = '(Holloway) Chew, Kean Ho'
+
+
+# PROJECT_CONTACT_EMAIL
+# Entity's email channel for email communications.
+PROJECT_CONTACT_EMAIL = 'hello@hollowaykeanho.com'
+
+
+# PROJECT_CONTACT_WEBSITE
+# Entity's website channel for sourcing information.
+PROJECT_CONTACT_WEBSITE = 'https://HestiaKERNEL.hollowaykeanho.com/'
+
+
+# PROJECT_SOURCE_URL
+# The Project's source code URL. This URL points to the source code location.
+# The URL can be used for other purposes such as The Docker's OCI Image source
+# field (org.opencontainers.image.source) which can be used for other connecting
+# purposes like GitHub Repo-Packages linking. See:
+#     1. https://docs.github.com/en/packages/learn-github-packages/connecting-a-repository-to-a-package
+#
+# Example:
+#     1. GitHub Packages : https://github.com/OWNER/REPO
+PROJECT_SOURCE_URL = 'https://github.com/ChewKeanHo/HestiaKERNEL'
+
+
+# PROJECT_SOURCE_GIT_REMOTE
+# The git remote tag for the project release publications. This is used for
+# sourcing the upstream git configurations. Unless absolute required, this field
+# can be left intact.
+#
+# Default is: 'origin'
+PROJECT_SOURCE_GIT_REMOTE = 'origin'
+
+
+# PROJECT_SOURCE_RELEASE_TAG_LATEST
+# The tag label for latest release and also a flag to trigger release branches
+# strategies.
+#
+# Default is: 'latest'
+# To enable release branch strategy: fill in the label
+# To disable: leave it empty ('')
+PROJECT_SOURCE_RELEASE_TAG_LATEST = 'latest'
+
+
+# PROJECT_README
+# The relative location of the project readme file from $PROJECT_PATH_ROOT
+# (repository root directory).
+#
+# Default is 'README.md'
+PROJECT_README = 'README.md'
+
+
+# PROJECT_LICENSE_FILE
+# The relative location of the project license file from $PROJECT_PATH_ROOT
+# (repository root directory).
+#
+# Default is 'LICENSE.pdf'
+PROJECT_LICENSE_FILE = 'LICENSE.pdf'
+
+
+# PROJECT_LICENSE_ACCEPTANCE_REQUIRED
+# The flag to indicate the license of the project **MUST** be explictly
+# accepted. This is used in ecosystem like .NET nupkg where a special UI
+# is available to interact with the end-users.
+#
+# Value is lowercase 'true' or 'false'.
+#
+# Default is 'true'
+PROJECT_LICENSE_ACCEPTANCE_REQUIRED = 'true'
+
+
+# AUTOMATACI_LANG
+# Overrides AutomataCI to operate in 1 specific language. Otherwise, AutomataCI
+# shall query the system language settings. Only accepts language code complying
+# to this format:
+#                        {iso639-1}[-{iso15954}]
+# Examples:
+#    'en'            – International English. (Default & Fallback)
+#    'fr'            – International French.
+#    'zh-hans'       – International Simplified Chinese.
+#    'zh-hant'       – International Traditional Chinese.
+AUTOMATACI_LANG = ''
+
+
+
+
+######################
+# ANGULAR TECHNOLOGY #
+######################
+# PROJECT_ANGULAR
+# This is a control variable used for enabling Angular technology and also
+# defining its source codes directory relative to PROJECT_PATH_ROOT. Depending
+# on the offered service (e.g. GitHub Actions), setting this variable with value
+# shall notify the CI provider to setup a localized virtual environment for
+# development automatically.
+#
+# To enable it: simply supply the path (e.g. 'Angular' for 'Angular/').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_ANGULAR = ''
+
+
+
+
+######################
+# BOOK TECHNOLOGY    #
+######################
+# PROJECT_BOOK
+# This is the control variable used for enabling e-book generation and also
+# defining its source directory relative to PROJECT_PATH_ROOT. Depending on
+# the offered service (e.g. GitHub Actions), setting this variable with value
+# shall notify the CI provider to setup the necessary software automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcBOOK').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_BOOK = ''
+
+
+
+
+######################
+# C TECHNOLOGY       #
+######################
+# PROJECT_C
+# This is a control variable used for enabling C technology and also defining
+# its source codes directory relative to PROJECT_PATH_ROOT. Depending on the
+# offered service (e.g. GitHub Actions), setting this variable with value shall
+# notify the CI provider to setup a localized virtual environment for
+# development automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcC').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_C = ''
+
+
+# PROJECT_C_BRANCH_TAG
+# This is for technology tagging purposes such as but not limited to release
+# branches identification. The value shall always be lowercase, short, and
+# directly identify it is C technology.
+#
+# Default is: 'c'
+# To disable: set it empty ''
+PROJECT_C_BRANCH_TAG = 'c'
+
+
+
+
+######################
+# CITATION           #
+######################
+# PROJECT_CITATION
+# This is the control variable used to generate the CITATION.cff file during the
+# Release CI Job. It is the cff-version field's value.
+#
+# To enable it, simply simply the supported version. Default is '1.2.0'.
+# To dsiable it, simply leave it empty.
+PROJECT_CITATION='1.2.0'
+
+
+# PROJECT_CITATION_TYPE
+# The type's field value of the repository representing the content of it.
+#
+# Can only accept 'software' or 'dataset'. Default is 'software'.
+PROJECT_CITATION_TYPE='software'
+
+
+
+
+######################
+# DOTNET TECHNOLOGY  #
+######################
+# PROJECT_DOTNET
+# This is a control variable used for enabling .NET technology in the
+# repository. Unlike other technologies, due to .NET nature, it is basically
+# a passive library located in the following directory:
+#     ${PROJECT_PATH_ROOT}/${PROJECT_PATH_TOOLS/${PROJECT_PATH_DOTNET_ENGINE}
+#
+# IMPORTANT NOTE: .NET is always enabled for Windows OS due to other
+# dependencies like MSI wix toolkits and etc. This variable only affects UNIX
+# side of stuffs.
+#
+# WARNING: installing .NET can increase setup time dramatically (e.g. ~+2mins
+#          in GitHub Actions). Only include when it's absolutely used or needed.
+#
+# To enable it: simply supply the path (e.g. default is 'true').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_DOTNET = ''
+
+
+# PROJECT_PATH_DOTNET_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up .NET localized directory.
+PROJECT_PATH_DOTNET_ENGINE = 'dotnet-engine'
+
+
+# PROJECT_DOTNET_CHANNEL
+# This is to configure the .NET version to be installed by AutomataCI. It SHALL
+# NOT be empty.
+#
+# Refer the following doc "channel" section to learn more:
+#   https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script
+#
+# When in doubt, use "LTS"
+PROJECT_DOTNET_CHANNEL = 'LTS'
+
+
+# DOTNET_CLI_TELEMETRY_OPTOUT
+# .NET default telemetry setting that will transmit its usage data back to
+# Microsoft.
+#
+# To preserve privacy and considering UNIX environments, it is enabled by
+# default.
+#
+# To enable: "1"
+# To disable: commit it out.
+DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+
+
+# PROJECT_PATH_NUPKG
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS +
+# PROJECT_PATH_DOTNET_ENGINE for for housing .NET nupkg packages. At AutomataCI,
+# .nupkg (a zip file) can be downloaded without depending on downloading the
+# entire .Net framework.
+PROJECT_PATH_NUPKG = 'nupkg'
+
+
+
+
+######################
+# GOOGLE AI          #
+######################
+# PROJECT_GOOGLEAI
+# This is a control variable used for enabling the Google AI demo workspace in
+# the repository. It's entirely facilitated just to demonstrate and test the
+# integrated Google AI libraries.
+#
+# To enable it: simply supply the path (e.g. default is 'srcGOOGLEAI').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_GOOGLEAI = ''
+
+
+# GOOGLEAI_API_URL
+# This is the base URL for Google AI API interfaces. It is specified in
+#     (1) https://ai.google.dev/api/rest
+#     (2) https://ai.google.dev/tutorials/rest_quickstart
+#
+# This is used to enable Google AI interfacing for terminal. Note that without
+# the GOOGLE_AI_API_TOKEN (in SECRETS.toml), Google AI cloud services are
+# unavailable.
+GOOGLEAI_API_URL = 'https://generativelanguage.googleapis.com'
+
+
+# GOOGLEAI_API_VERSION
+# This specifies the API interface version. It is specified in
+#     (1) https://ai.google.dev/api/rest
+#
+# This is used to configure Google AI API interfaces for terminal.
+GOOGLEAI_API_VERSION = 'v1beta'
+
+
+# GOOGLEAI_MODEL
+# This specifies the AI model to be used. It is specified in:
+#     (1) https://ai.google.dev/models/
+#
+# This is used to configure Google AI API interfaces for terminal and it's part
+# of its url. Hence, the correct value is usually leads with 'models/[TYPE]'.
+#
+# Default is: models/gemini-pro
+GOOGLEAI_MODEL = 'models/gemini-pro'
+
+
+# GOOGLEAI_BLOCK_HATE_SPEECH
+# This specifies the AI filtering category for hate speeches. It uses the
+# string-type enumerated values stated in:
+#     (1) https://ai.google.dev/api/rest/v1beta/HarmCategory
+#     (2) https://ai.google.dev/api/rest/v1beta/SafetySetting#HarmBlockThreshold
+#
+# Acceptable values are:
+#     (1) 'HARM_BLOCK_THRESHOLD_UNSPECIFIED' - not specified
+#     (2) 'BLOCK_LOW_AND_ABOVE' - NEGLIGIBLE is allowed.
+#     (3) 'BLOCK_MEDIUM_AND_ABOVE' - LOW & NEGLIGIBLE allowed.
+#     (4) 'BLOCK_ONLY_HIGH' - MEDIUM, LOW & NEGLIGIBLE allowed.
+#     (5) 'BLOCK_NONE' - All content will be allowed.
+#
+# If value is unavailable (empty string), then 'BLOCK_NONE' is the default.
+GOOGLEAI_BLOCK_HATE_SPEECH = 'BLOCK_NONE'
+
+
+# GOOGLEAI_BLOCK_SEXUALLY_EXPLICIT
+# This specifies the AI filtering category for sexually explicit content. It
+# uses the string-type enumerated values stated in:
+#     (1) https://ai.google.dev/api/rest/v1beta/HarmCategory
+#     (2) https://ai.google.dev/api/rest/v1beta/SafetySetting#HarmBlockThreshold
+#
+# Acceptable values are:
+#     (1) 'HARM_BLOCK_THRESHOLD_UNSPECIFIED' - not specified
+#     (2) 'BLOCK_LOW_AND_ABOVE' - NEGLIGIBLE is allowed.
+#     (3) 'BLOCK_MEDIUM_AND_ABOVE' - LOW & NEGLIGIBLE allowed.
+#     (4) 'BLOCK_ONLY_HIGH' - MEDIUM, LOW & NEGLIGIBLE allowed.
+#     (5) 'BLOCK_NONE' - All content will be allowed.
+#
+# If value is unavailable (empty string), then 'BLOCK_NONE' is the default.
+GOOGLEAI_BLOCK_SEXUALLY_EXPLICIT = 'BLOCK_NONE'
+
+
+# GOOGLEAI_BLOCK_DANGEROUS_CONTENT
+# This specifies the AI filtering category for dangerous content. It
+# uses the string-type enumerated values stated in:
+#     (1) https://ai.google.dev/api/rest/v1beta/HarmCategory
+#     (2) https://ai.google.dev/api/rest/v1beta/SafetySetting#HarmBlockThreshold
+#
+# Acceptable values are:
+#     (1) 'HARM_BLOCK_THRESHOLD_UNSPECIFIED' - not specified
+#     (2) 'BLOCK_LOW_AND_ABOVE' - NEGLIGIBLE is allowed.
+#     (3) 'BLOCK_MEDIUM_AND_ABOVE' - LOW & NEGLIGIBLE allowed.
+#     (4) 'BLOCK_ONLY_HIGH' - MEDIUM, LOW & NEGLIGIBLE allowed.
+#     (5) 'BLOCK_NONE' - All content will be allowed.
+#
+# If value is unavailable (empty string), then 'BLOCK_NONE' is the default.
+GOOGLEAI_BLOCK_DANGEROUS_CONTENT = 'BLOCK_NONE'
+
+
+# GOOGLEAI_BLOCK_HARASSMENT
+# This specifies the AI filtering category for harassment content. It
+# uses the string-type enumerated values stated in:
+#     (1) https://ai.google.dev/api/rest/v1beta/HarmCategory
+#     (2) https://ai.google.dev/api/rest/v1beta/SafetySetting#HarmBlockThreshold
+#
+# Acceptable values are:
+#     (1) 'HARM_BLOCK_THRESHOLD_UNSPECIFIED' - not specified
+#     (2) 'BLOCK_LOW_AND_ABOVE' - NEGLIGIBLE is allowed.
+#     (3) 'BLOCK_MEDIUM_AND_ABOVE' - LOW & NEGLIGIBLE allowed.
+#     (4) 'BLOCK_ONLY_HIGH' - MEDIUM, LOW & NEGLIGIBLE allowed.
+#     (5) 'BLOCK_NONE' - All content will be allowed.
+#
+# If value is unavailable (empty string), then 'BLOCK_NONE' is the default.
+GOOGLEAI_BLOCK_HARASSMENT = 'BLOCK_NONE'
+
+
+
+
+##########################
+# LIBREOFFICE TECHNOLOGY #
+##########################
+# PROJECT_LIBREOFFICE
+# This is a control variable used for enabling LibreOffice technology and also
+# defining its source directory relative to PROJECT_PATH_ROOT. Depending on the
+# offered service (e.g. GitHub Actions), setting this variable with value shall
+# notify the CI provider to setup a localized virtual environment for
+# development automatically.
+#
+# Do note that should the following technologies are enabled, LibreOffice shall
+# be installed regardless of this control variable:
+#     (1) PROJECT_RESEARCH - using Libreoffice by default.
+#     (2) PROJECT_BOOK - using Libreoffice by default.
+#
+# To enable it: simply supply the path (e.g. default is 'srcLIBREOFFICE').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_LIBREOFFICE = ''
+
+
+# PROJECT_LIBREOFFICE_MIRROR
+# This is the base URL for downloading the libreoffice installer. The pathing
+# shall be the directory listing each distribution type (as in you will see
+# 'flatpak', 'portable', 'src', 'stable', 'testing', ...). You should include
+# the URL without the suffixing the '/' symbol.
+#
+# Refer to the following mirror list for value selection:
+#     (1) https://download.documentfoundation.org/mirmon/allmirrors.html
+PROJECT_LIBREOFFICE_MIRROR = 'https://download.documentfoundation.org/libreoffice'
+
+
+# PROJECT_LIBREOFFICE_VERSION
+# This is for defining the LibreOffice version to install into the local OS.
+#
+# Refer the the following list for value selection:
+#     (1) https://www.libreoffice.org/download/download-libreoffice/
+#
+# Example: '24.4.3' for 'LibreOffice 24.4.3'
+PROJECT_LIBREOFFICE_VERSION = '24.2.3'
+
+
+# PROJECT_PATH_LIBREOFFICE_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up localized environment.
+PROJECT_PATH_LIBREOFFICE_ENGINE = 'libreoffice-engine'
+
+
+
+
+######################
+# GO TECHNOLOGY      #
+######################
+# PROJECT_GO
+# This is a control variable used for enabling Go technology and also defining
+# its source codes directory relative to PROJECT_PATH_ROOT. Depending on the
+# offered service (e.g. GitHub Actions), setting this variable with value shall
+# notify the CI provider to setup a localized virtual environment for
+# development automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcGO').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_GO = ''
+
+
+# PROJECT_PATH_GO_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up localized environment.
+PROJECT_PATH_GO_ENGINE = 'go-engine'
+
+
+
+
+######################
+# NIM TECHNOLOGY     #
+######################
+# PROJECT_NIM
+# This is a control variable used for enabling Nim technology and also defining
+# its source codes directory relative to PROJECT_PATH_ROOT. Depending on the
+# offered service (e.g. GitHub Actions), setting this variable with value shall
+# notify the CI provider to setup a localized virtual environment for
+# development automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcNIM').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_NIM = ''
+
+
+# PROJECT_PATH_NIM_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up localized environment.
+PROJECT_PATH_NIM_ENGINE = 'nim-engine'
+
+
+
+
+######################
+# NODE TECHNOLOGY    #
+######################
+# PROJECT_NODE
+# This is a control variable used for enabling NodeJS technology and also
+# defining its source codes directory relative to PROJECT_PATH_ROOT. Depending
+# on the offered service (e.g. GitHub Actions), setting this variable with value
+# shall notify the CI provider to setup a localized virtual environment for
+# development automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcNODE').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_NODE = ''
+
+
+# PROJECT_PATH_NODE_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up localized virtual environment.
+PROJECT_PATH_NODE_ENGINE = 'node-engine'
+
+
+# PROJECT_NODE_VERSION
+# This is to specify which version of node to be downloaded for the project
+# as the localized virtual environment engine. Please refer to:
+#          https://nodejs.org/en/download/prebuilt-binaries/current
+# for values.
+#
+# Leaving it empty shall set AutomataCI to use the system-level NodeJS
+# (e.g: your pre-configured NodeJS).
+#
+# To enable: specify a version (e.g. 'v22.2.0')
+# To disable: keep it empty ('').
+PROJECT_NODE_VERSION = 'v22.2.0'
+
+
+# PROJECT_NODE_LOCALIZED
+# This is a flag environment variable when a localized virtual environment for
+# NodeJS is active. This is useful for detecting which nodeJS engine you're
+# currently using for the project in a given terminal.
+#
+# When active, The variable's value is the pathing to the engine itself.
+#
+# This variable is reserved by the activator script created autonomously by
+# AutomataCI.
+#PROJECT_NODE_LOCALIZED - Reserved
+
+
+# PROJECT_NODE_NPM_REGISTRY
+# The registry URL for publishing the NPM packages.
+#
+# The following are identified:
+#
+# GitHub Packages: 'https://npm.pkg.github.com'
+# NPMJS          : 'https://registry.npmjs.com'
+#
+# Default is: 'https://npm.pkg.github.com'
+PROJECT_NODE_NPM_REGISTRY = 'https://npm.pkg.github.com'
+
+
+# PROJECT_NODE_BRANCH_TAG
+# This is for technology tagging purposes such as but not limited to release
+# branches identification. The value shall always be lowercase, short, and
+# directly identify it is Node technology.
+#
+# Default is: 'npm'
+# To disable: set it empty ''
+PROJECT_NODE_BRANCH_TAG = 'npm'
+
+
+
+
+######################
+# PYTHON TECHNOLOGY  #
+######################
+# PROJECT_PYTHON
+# This is a control variable used for enabling Python technology and also
+# defining its source codes directory relative to PROJECT_PATH_ROOT.
+# Depending on the offered service (e.g. GitHub Actions), setting this
+# variable with value shall notify the CI provider to setup a localized virtual
+# environment for development automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcPYTHON').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_PYTHON = ''
+
+
+# PROJECT_PATH_PYTHON_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up venv location.
+PROJECT_PATH_PYTHON_ENGINE = 'python-engine'
+
+
+# PROJECT_PYPI_REPO_URL
+# The PyPi upstream repo to push the PyPi package. The defualt PyPi values are:
+#     Test Zone : https://test.pypi.org/legacy/
+#     Actual    : https://upload.pypi.org/legacy/
+PROJECT_PYPI_REPO_URL = 'https://test.pypi.org/legacy/'
+
+
+# PROJECT_PYPI_README
+# The PyPi README file relative to PROJECT_PATH_ROOT directory. Default is the
+# the common README.md. It **MUST** be a file.
+PROJECT_PYPI_README = 'README.md'
+
+
+# PROJECT_PYPI_README_MIME
+# The PyPi README file's MIME type data. Default is 'text/markdown'.
+PROJECT_PYPI_README_MIME = 'text/markdown'
+
+
+
+
+######################
+# RESEARCH PAPER     #
+######################
+# PROJECT_RESEARCH
+# This is the control variable used for enabling research paper generation and
+# also defining its source directory relative to PROJECT_PATH_ROOT. Depending on
+# the offered service (e.g. GitHub Actions), setting this variable with value
+# shall notify the CI provider to setup the necessary software automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcRESEARCH').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_RESEARCH = ''
+
+
+# PROJECT_RESEARCH_IDENTIFIER
+# The file identifier for the compiled output paper file from its peers with the
+# same formats (e.g. a bunch of PDFs). This is suffix-ed within the filename
+# itself like:
+#
+#    pattern: '${PROJECT_SKU}-${PROJECT_RESEARCH_IDENTIFIER}_v${PROJECT_VERSION}_any-any.pdf'
+#    example: 'automataci-RESEARCH_v100.00.100_any-any.pdf'
+#
+# default is: 'RESEARCH'
+PROJECT_RESEARCH_IDENTIFIER = 'RESEARCH'
+
+
+
+
+######################
+# RUST TECHNOLOGY    #
+######################
+# PROJECT_RUST
+# This is a control variable used for enabling Rust technology and also
+# defining its source codes directory relative to PROJECT_PATH_ROOT.
+# Depending on the offered service (e.g. GitHub Actions), setting this
+# variable with value shall notify the CI provider to setup Rust development
+# environment automatically.
+#
+# To enable it: simply supply the path (e.g. default is 'srcRUST').
+# To disable it: simply supply an empty path (e.g. default is '').
+PROJECT_RUST = ''
+
+
+# PROJECT_RUST_EDITION
+# The Rust's formatter and linting edition (Cargo.toml's edition field).
+#
+# Default is '2021'.
+PROJECT_RUST_EDITION = '2021'
+
+
+# PROJECT_PATH_RUST_ENGINE
+# This is a relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_TOOLS for
+# setting up localized environment.
+PROJECT_PATH_RUST_ENGINE = 'rust-engine'
+
+
+# PROJECT_CARGO_README
+# The Cargo README file relative to PROJECT_PATH_ROOT directory. Default is the
+# the common README.md. It **MUST** be a file.
+PROJECT_CARGO_README = 'README.md'
+
+
+# CARGO_REGISTRY
+# The Cargo registry.
+#
+# Default is: crates-io
+CARGO_REGISTRY = 'crates-io'
+
+
+
+
+##########################
+# DISTRIBUTION - ALL     #
+##########################
+# PROJECT_CHANGELOG_TITLE
+# The title of the changelog file.
+PROJECT_CHANGELOG_TITLE = 'Changelog | 更新日志 | Endringslogg | Cacatan Perubahan | Ändringslogg | 変更履歴'
+
+
+# PROJECT_RELEASE_SHA256
+# Perform SHA256 checksum file generation in Release job. To disable it, simply
+# let it empty.
+#
+# Otherwise, as long as it's not empty, it is enabled.
+PROJECT_RELEASE_SHA256 = 'enabled'
+
+
+# PROJECT_RELEASE_SHA512
+# Perform SHA512 checksum file generation. To disable it, simply let it
+# empty.
+#
+# Otherwise, as long as it's not empty, it is enabled.
+PROJECT_RELEASE_SHA512 = 'enabled'
+
+
+# PROJECT_SIMULATE_RUN
+# A flag to indicate this CI job run is to be simulated (or 'dry run').
+# Depending on job, this disables certain non-resersible, critical, or high
+# stake tasks (e.g. gpg-signing, release conclusion etc) and replace it with a
+# simple simulation run.
+#
+# It is made primarily for local CI job run testing and for full automated run
+# like GitHub Actions or GitLab CI.
+#
+# To enable, simply declare the environment variable non-empty value (e.g. 'true').
+# To disable: leave it empty.
+#
+# PROJECT_SIMULATE_RUN = '' # Reserved - provided externally via environment variable.
+
+
+# PROJECT_ROBOT_RUN
+# A flag to indicate the run is operating inside a CI service by its
+# autonomous robot.
+#
+# It is made primarily for local CI job run testing and for full automated run
+# like GitHub Actions or GitLab CI.
+#
+# To enable, simply declare the environment variable non-empty value (e.g. 'true').
+# To disable: leave it empty.
+#
+# PROJECT_ROBOT_RUN = ''  # Reserved - provided externally via environment variable.
+
+
+# PROJECT_RELEASE_REPO_TYPE
+# The type of release repository. Available options are:
+#
+# 1. 'git'   - git repository
+# 2. 'local' - a localized directory (for manual export elsewhere).
+#
+# Default is 'git'.
+# Leaving it empty shall fallback to git repository.
+PROJECT_RELEASE_REPO_TYPE = 'git'
+
+
+# PROJECT_RELEASE_REPO
+# The URL for setting the ${PROJECT_PATH_ROOT}/${PROJECT_PATH_RELEASE} directory
+# as a single unified repository rather than manage each of the release repos
+# individually. This is designed for Git-based publishing service providers like
+# GitHub/GitLab Pages and etc.
+#
+# Setting this field shall overrides all the distributions' git url fields
+# (e.g. PROJECT_RPM_REPO, PROJECT_DEB_REPO, etc) and will only push to this
+# repo at the end of the release job conclusion.
+#
+# Default is empty '' (favoring flat-mode repositories)
+PROJECT_RELEASE_REPO = ''
+
+
+# PROJECT_RELEASE_REPO_KEY
+# The git upstream key for PROJECT_RELEASE_REPO. This field cannot be left
+# empty.
+#
+# Default is 'origin'.
+PROJECT_RELEASE_REPO_KEY = 'origin'
+
+
+# PROJECT_RELEASE_REPO_BRANCH
+# The git upstream branch for PROJECT_RELEASE_REPO. This field cannot be left
+# empty.
+#
+# Default is 'master' or 'main'.
+PROJECT_RELEASE_REPO_BRANCH = 'master'
+
+
+# PROJECT_RELEASE_ARCHIVE
+# The flag to package archive (.tar.gz | .zip) files as output.
+#
+# To enable : fill in some string (e.g. 'enabled')
+# To disable: leave it empty ('')
+PROJECT_RELEASE_ARCHIVE = 'enabled'
+
+
+# PROJECT_RELEASE_IPK
+# The flag to package ipk pipeline.
+#
+# To enable : fill in some string (e.g. 'enabled')
+# To disable: leave it empty ('')
+PROJECT_RELEASE_IPK = 'enabled'
+
+
+
+
+#############################
+# DISTRIBUTION - CHOCOLATEY #
+#############################
+# PROJECT_CHOCOLATEY_URL
+# The base URL for Chocolatey & end-users to source the .nupkg packages. This
+# variable is also acting as a switch to enable/disable Chocolatey distribution
+# pipeline.
+#
+# End user may track your upstream using this URL (as in the command:
+# '$ choco source add -n name -s location'). More info:
+#   (1) https://docs.chocolatey.org/en-us/choco/commands/sources/
+#   (2) https://docs.chocolatey.org/en-us/features/host-packages/
+#
+# Some examples are:
+#   (1) GitHub Release:
+#             value: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download'
+#        actual URL: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download/[FILE]'
+#
+# To enable it: set the URL without the ending slash.
+# To disable it: set it empty.
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_CHOCOLATEY_URL = 'https://github.com/ChewKeanHo/HestiaKERNEL/releases/latest/download'
+
+
+
+
+# PROJECT_CHOCOLATEY_VERSION
+# The Chocolatey version as a dependency. This field SHALL NOT BE EMPTY.
+#
+# Default value is: '0.9.8.21'
+PROJECT_CHOCOLATEY_VERSION = '0.9.8.21'
+
+
+
+
+#############################
+# DISTRIBUTION - CONTAINERS #
+#############################
+# PROJECT_CONTAINER_REGISTRY
+# The container registry URI value without ending slash. This variable is also
+# acting as a switch to enable/disable container distribution pipeline.
+#
+# Some examples:
+#     1. DockerHub     : registry.hub.docker.com/[ NAMESPACE ]
+#     2. GitHub Package: ghcr.io/[ NAMESPACE ]
+#     2. Local         : localhost:5000/[ NAMESPACE ]
+#
+# To enable it: set the URI without the ending slash.
+# To disable it: set it empty.
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_CONTAINER_REGISTRY = 'ghcr.io/chewkeanho'
+
+
+# PROJECT_CONTAINER_BASE_WINDOWS
+# The base Windows image of the container. If you wish to use bare scratch, set
+# the value to 'scratch'.
+#
+# Default is: 'mcr.microsoft.com/windows/nanoserver:ltsc2022'
+PROJECT_CONTAINER_BASE_WINDOWS = 'mcr.microsoft.com/windows/nanoserver:ltsc2022'
+
+
+# PROJECT_CONTAINER_BASE_WINDOWS_ARCH
+# The list of archiectures to be containerized and supported by the Windows base
+# image. Leaving this field empty means accepts all which is usable for
+# 'scratch' type base images.
+#
+# Each image is separated by a '|'.
+#
+# Default is: 'amd64' (mcr.microsoft.com/windows/nanoserver:ltsc2022)
+PROJECT_CONTAINER_BASE_WINDOWS_ARCH = 'amd64'
+
+
+# PROJECT_CONTAINER_BASE_LINUX
+# The base Linux image of the container. If you wish to use bare scratch, set
+# the value to 'scratch'.
+#
+# Default is: 'linuxcontainers/debian-slim:latest'
+PROJECT_CONTAINER_BASE_LINUX = 'linuxcontainers/debian-slim:latest'
+
+
+# PROJECT_CONTAINER_BASE_LINUX_ARCH
+# The list of archiectures to be containerized and supported by the Linux base
+# image. Leaving this field empty means accepts all which is usable for
+# 'scratch' type base images.
+#
+# Each image is separated by a '|'.
+#
+# Default is: '386|amd64|arm64|ppc64le|s390x' (linuxcontainers/debian-slim:latest)
+PROJECT_CONTAINER_BASE_LINUX_ARCH = '386|amd64|arm64|ppc64le|s390x'
+
+
+# DOCKER_CLI_EXPERIMENTAL
+# Enable the Docker's experimental CLI features for using buildx. If disabled,
+# is shall break many of the CI job.
+DOCKER_CLI_EXPERIMENTAL = 'enabled'
+
+
+
+
+##########################
+# DISTRIBUTION - DEB     #
+##########################
+# PROJECT_DEB_URL
+# The .debs' downloadable apt URL used for generating the
+# /etc/apt/source.list.d/ source file. More info:
+#   (1) https://wiki.debian.org/DebianRepository/Format
+#
+# For flat repository mode (e.g. GitHub Release / GitLab Release),
+# simply supply the URL without the last section of the pathing. For example:
+#   (1) GitHub Release:
+#             value: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest'
+#        actual URL: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download/[FILE]'
+#
+# This field also acts as the flag for enabling or disabling the deb pipeline.
+#
+# To enable : fill in the end-user downloadable URL without ending slash.
+# To disable: leave this field empty ('').
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_DEB_URL = 'https://github.com/ChewKeanHo/HestiaKERNEL/releases/latest'
+
+
+# PROJECT_DEB_DISTRIBUTION
+# The 'Suite' ('Suite: ' field) distribution series for grouping .deb pakages
+# by major release. The value is used for generating changelog and for
+# the .deb package repository processes. More info:
+#   https://www.debian.org/doc/debian-policy/ch-controlfields.html#id25
+#   https://www.debian.org/doc/debian-policy/ch-source.html#debian-changelog-debian-changelog
+#   https://wiki.debian.org/DebianRepository/Format
+#
+# By default, the repository is operating in the conventional pool repository
+# mode (with 'dist' and 'pool' sub-directories). To enable the flat repository
+# mode (e.g. GitHub Release / GitLab Release), simply ends with a slash to
+# indicate it is a directory. For example:
+#   (1) GitHub Release:
+#             value: 'download/'
+#        actual URL: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download/[FILE]'
+#
+# Otherwise, the default pool repository mode is implemented. In this case, when
+# in doubt, the following values are recommended for the highest compatibilities
+# with all Debian-based OSes:
+#   (1) 'stable'                = for stable branch (e.g. 'main')
+#   (2) 'unstable' OR 'testing' = for next release branch (e.g 'staging', or
+#                                 'next').
+#   (3) 'experimental'          = for latest branch (e.g 'experimental' or
+#                                 'edge').
+PROJECT_DEB_DISTRIBUTION = 'download/'
+
+
+# PROJECT_DEB_COMPONENT
+# The value used by deb package repository for grouping packages by
+# categorization. In any case, the value **MUST** match any one of the
+# 'Component:' field understood by the apt package manager.
+#
+# This is mainly used to group the packages by categories (e.g. 'firmware',
+# 'gui', 'models', etc). Some recommended values would be your repository
+# functioning name (e.g. 'main', 'next', 'dev', etc.).
+#
+# When in doubt or usually unused, set the value to 'main'.
+PROJECT_DEB_COMPONENT = 'main'
+
+
+# PROJECT_DEB_CODENAME
+# The value used by deb package repository for tagging a release series. In any
+# case, the value **MUST** match any one of the 'Codename:' field understood by
+# the apt package manager. Generally, Codename is used to symlink against
+# Suite for unique identification or specific release version freezes.
+#
+# Example values from Debian are: 'experimental', 'sid', 'bookworm', 'wheeze',
+# etc (toy story characters).
+#
+# When in doubt or unused, It is advisble to set the following values:
+#   (1) In flat repository: 'stable'.
+#   (2) In pool repository: 'stable' or same as PROJECT_DEB_DISTRIBUTION.
+PROJECT_DEB_CODENAME = 'stable'
+
+
+# PROJECT_DEB_ARCH
+# The list of overriding system architectures values for the deb package
+# repository. It accepts a list of values separated by space (' ') based on
+# dpkg supported architectures. The command:
+#                   "$ dpkg-architecture --list-known"
+# will print out a list of supported architectures' value based on the host
+# system.
+#
+# Please keep in mind that the values are not used for gatekeeping purposes.
+# When left empty, AutomataCI shall generate a full list from the existing
+# published packages autonomously.
+#
+# By default and recommended, the value is empty '' for automation purposes.
+PROJECT_DEB_ARCH = ''
+
+
+# PROJECT_DEB_IS_NATIVE
+# Flag to determine the project is Debian natively sponsored package. Usually
+# is false.
+#
+# Only accept: "true/false"
+#
+# Default is 'false'.
+PROJECT_DEB_IS_NATIVE = 'false'
+
+
+# PROJECT_DEB_PRIORITY
+# Indicate the current package's distribution priority. Strictly the following
+# values arranged from highest priority to the lowest:
+#  (1) required
+#  (2) important
+#  (3) standard
+#  (4) optional
+#  (5) extra
+# see https://www.debian.org/doc/debian-policy/ch-archive.html#s-priorities for
+# more info.
+#
+# Default is 'optional'.
+PROJECT_DEB_PRIORITY = 'optional'
+
+
+# PROJECT_DEB_URGENCY
+# The urgency value used for compiling the .deb pakage changelog. See this page
+# for more info:
+# https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-urgency
+# https://www.debian.org/doc/debian-policy/ch-source.html#debian-changelog-debian-changelog
+#
+# Strictly of the following values from highest attention to the lowest:
+#   (1) critical
+#   (2) emergency
+#   (3) high           = for user diversions
+#   (4) medium
+#   (5) low
+#
+# Default is 'low'.
+PROJECT_DEB_URGENCY = 'low'
+
+
+# PROJECT_DEB_SECTION
+# The categories the project belongs to in the Debian .deb package ecosystem.
+# Contains restricted values. Refer:
+#      https://www.debian.org/doc/debian-policy/ch-archive.html#sections
+# For maximum compliances
+PROJECT_DEB_SECTION = 'devel'
+
+
+# PROJECT_DEB_REPO
+# The git repository for publishing all .deb packages using a static file
+# sharing service (e.g NGINX file hosting, GitHub/GitLab Pages, etc). When
+# enabled, this repository URL shall be git clone into
+# '$PROJECT_PATH_ROOT/$PROJECT_PATH_RELEASE' directory named as 'deb'.
+#
+# Note that if PROJECT_RELEASE_REPO is set, this field is ignored regardless of
+# its value.
+PROJECT_DEB_REPO = 'git@github.com:ChewKeanHo/HestiaKERNEL.wiki.git'
+
+
+# PROJECT_DEB_REPO_KEY
+# The git upstream key. Value CANNOT be empty.
+#
+# Default is 'origin'.
+PROJECT_DEB_REPO_KEY = 'origin'
+
+
+# PROJECT_DEB_REPO_BRANCH
+# The git upstream branch. Value CANNOT be empty.
+#
+# Default is 'master' or 'main'.
+PROJECT_DEB_REPO_BRANCH = 'master'
+
+
+# PROJECT_DEB_PATH
+# The relative pathing for organizing within the debian repository directory.
+# The path is always relative to
+# '${PROJECT_PATH_ROOT}/${PROJECT_PATH_RELEASE}/deb' directory which is the
+# PROJECT_DEB_REPO debian repository. This is useful for cases where specific
+# directory is required (e.g. 'GitHub Pages using "docs/" directory for
+# publications).
+#
+# If left empty, AutomataCI shall use 'deb' as its value.
+#
+# Default is 'deb'.
+PROJECT_DEB_PATH = 'deb'
+
+
+# PROJECT_DEB_PATH_DATA
+# The deb repository noDB database directory. This houses all the packages data
+# for recursive compilations. When set, the pathing is strictly relative to
+# '${PROJECT_PATH_ROOT}/${PROJECT_PATH_SOURCE}/data/deb' directory.
+#
+# Leaving it empty shall use a disposable database directory located in:
+# '${PROJECT_PATH_ROOT}/${PROJECT_PATH_TEMP}/releaser-deb-repoDB' pathing.
+#
+# Default is 'repoDB' ('${PROJECT_PATH_ROOT}/${PROJECT_PATH_SOURCE}/data/deb/repoDB')
+PROJECT_DEB_PATH_DATA = 'repoDB'
+
+
+
+
+##########################
+# DISTRIBUTION - DOCS    #
+##########################
+# PROJECT_DOCS_URL
+# The base URL for viewing the published documentation (e.g. website address).
+# It is made available in-case of publication needs.
+#
+# This field also acts as the flag for enabling or disabling the documentation
+# pipeline.
+#
+# To enable : fill in the end-user downloadable URL without ending slash.
+# To disable: leave this field empty ('').
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_DOCS_URL = 'https://github.io/ChewKeanHo/HestiaKERNEL'
+
+
+# PROJECT_DOCS_REPO
+# The git repository for publishing all the docs web artifacts using a static
+# file sharing service (e.g NGINX file hosting, GitHub/GitLab Pages, etc).
+# This repository URL shall be git clone into
+# '$PROJECT_PATH_ROOT/$PROJECT_PATH_RELEASE' directory internally named as
+# 'x_docsrepo'.
+#
+# Note that regardless of PROJECT_RELEASE_REPO is set or otherwise, this repo
+# shall be deleted automatically at the end of its operation, successful or
+# otherwise to prevent output distortion.
+PROJECT_DOCS_REPO = 'git@github.com:ChewKeanHo/HestiaKERNEL.git'
+
+
+# PROJECT_DOCS_REPO_KEY
+# The git upstream key. Value CANNOT be empty.
+#
+# Default is 'origin'.
+PROJECT_DOCS_REPO_KEY = 'origin'
+
+
+# PROJECT_DOCS_REPO_BRANCH
+# The git upstream branch. Value CANNOT be empty.
+#
+# For Website service provider using git version control system such as but not
+# limited to GitHub/GitLab Pages, it is always advisable to implement 'gh-pages'
+# (default settings) instead of other means. Otherwise, if the repository is
+# a standalone one (e.g. [USERNAME].github.io repository as root profile)
+# website, then standard branch name is used.
+#
+# Default is 'gh-pages'.
+PROJECT_DOCS_REPO_BRANCH = 'gh-pages'
+
+
+
+
+##########################
+# DISTRIBUTION - FLATPAK #
+##########################
+# PROJECT_FLATPAK_URL
+# The base URL for Flatpak to download its associated .flatpak package payload.
+# This variable is also acting as a switch to enable/disable Flatpak
+# distribution pipeline.
+#
+# AutomataCI will always compile "Single File Bundles" distribution channel by
+# default. Should PROJECT_FLATPAK_REPO is set, then AutomataCI shall also
+# compile and update the "Repository" distribution channel. More info:
+#     1. https://docs.flatpak.org/en/latest/repositories.html
+#
+# In the event where "Repository" distribution channel is set
+# (PROJECT_FLATPAK_REPO), then the URL shall be pointing to the repository URL
+# instead of the "Single File Bundles" downlodable portal version. The value
+# shall be used for creating .flakpakrepo and .flatpakref files respectively.
+#
+# Some examples are:
+#   (1) GitHub Release (Single Bundle channel only):
+#             value: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download'
+#        actual URL: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download/[FILE]'
+#
+#   (2) GitHub Pages (Single Bundle channel + Repository):
+#             value: 'https://[USERNAME]github.io/flatpak/[PROJECT].flatpakrepo'
+#        actual URL: 'https://[USERNAME]github.io/flatpak/[PROJECT].flatpakrepo'
+#
+#   (3) Other static file hosting services (Single Bundle channel + Repository):
+#             value: 'https://www.example.com/flatpak/[PROJECT].flatpakrepo'
+#        actual URL: 'https://www.example.com/flatpak/[PROJECT].flatpakrepo'
+#
+# This field also acts as the flag for enabling or disabling the flatpak
+# pipeline.
+#
+# To enable it: set the URL without the ending slash.
+# To disable it: set it empty.
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_FLATPAK_URL = 'https://github.com/ChewKeanHo/HestiaKERNEL/releases/latest/download'
+
+
+# PROJECT_FLATPAK_REPO
+# The Flatpak publication git repository for updating and publishing
+# Flatpak packages repository. AutomataCI will always use the temporary
+# directory for all flatpak packaging operations at:
+#            $PROJECT_PATH_ROOT/$PROJECT_PATH_TEMP/flatpak-repo
+# until it is being moved to the release job when set.
+#
+# This field also acts as a flag for enabling "Repository" distribution channel
+# when PROJECT_FLATPAK_URL is set.
+#
+# To enable it: set the URL without the ending slash.
+# To disable it: set it empty.
+#
+# In the event where PROJECT_RELEASE_REPO is set, this repo shall be ignored.
+# However, to maintain enabling the "Repository" distribution channel packaging
+# decision, this field shall have the same value as PROJECT_RELEASE_REPO.
+PROJECT_FLATPAK_REPO = 'git@github.com:ChewKeanHo/HestiaKERNEL.wiki.git'
+
+
+# PROJECT_FLATPAK_PATH
+# The relative pathing for organizing within the flatpak repository directory.
+# when "Repository" distribution channel is set.
+# The path is always relative to
+# '${PROJECT_PATH_ROOT}/${PROJECT_PATH_RELEASE}/flatpak' directory which is the
+# PROJECT_FLATPAK_REPO debian repository. This is useful for cases where
+# specific directory is required (e.g. 'GitHub Pages using "docs/" directory
+# for publications).
+#
+# If left empty, AutomataCI shall use 'flatpak' as its value.
+#
+# Default is 'flatpak'.
+PROJECT_FLATPAK_PATH = 'flatpak'
+
+
+# PROJECT_FLATPAK_REPO_KEY
+# The git upstream key. Value CANNOT be empty.
+#
+# Default is 'origin'.
+PROJECT_FLATPAK_REPO_KEY = 'origin'
+
+
+# PROJECT_FLATPAK_REPO_BRANCH
+# The git upstream branch. Value CANNOT be empty.
+#
+# Default is 'main' or 'master'.
+PROJECT_FLATPAK_REPO_BRANCH = 'master'
+
+
+# PROJECT_FLATPAK_RUNTIME
+# The runtime module where the Flatpak is operating on.
+PROJECT_FLATPAK_RUNTIME = 'org.freedesktop.Platform'
+
+
+# PROJECT_FLATPAK_RUNTIME_VERSION
+# The runtime module where the Flatpak is operating on.
+PROJECT_FLATPAK_RUNTIME_VERSION = '22.08'
+
+
+# PROJECT_FLATPAK_SDK
+# The runtime module where the Flatpak is operating on.
+PROJECT_FLATPAK_SDK = 'org.freedesktop.Sdk'
+
+
+
+
+###########################
+# DISTRIBUTION - HOMEBREW #
+###########################
+# PROJECT_HOMEBREW_URL
+# The base URL for Homebrew formula to download its associated tar.*z archive
+# payload. This variable is also acting as a switch to enable/disable Homebrew
+# distribution pipeline.
+#
+# Some examples are:
+#   (1) GitHub Release:
+#             value: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download'
+#        actual URL: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download/[FILE]'
+#
+# This field also acts as the flag for enabling or disabling the homebrew
+# pipeline.
+#
+# To enable it: set the URL without the ending slash.
+# To disable it: set it empty.
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_HOMEBREW_URL = 'https://github.com/ChewKeanHo/HestiaKERNEL/releases/latest/download'
+
+
+# PROJECT_HOMEBREW_REPO
+# The Homebrew formula publication git repository for updating and publishing
+# Homebrew's formula. This repository is ENTIRELY DIFFERENT from your project
+# version (as in a tap repo: '$ brew tap [username]/[collections] [URL]').
+# More info:
+#     1. https://docs.brew.sh/Taps
+#
+# Value CANNOT BE EMPTY. When in doubt, you can create a publishing
+# 'Collections' git repository which is great for branding. For example:
+#     1. (Holloway) Chew, Kean Ho: 'git@github.com:ChewKeanHo/Collections.git'
+#
+# Note that regardless of PROJECT_RELEASE_REPO is set or otherwise, this repo
+# shall be deleted automatically at the end of its operation, successful or
+# otherwise to prevent output distortion.
+PROJECT_HOMEBREW_REPO = 'git@github.com:ChewKeanHo/Collections.git'
+
+
+# PROJECT_HOMEBREW_REPO_KEY
+# The git upstream key. Value CANNOT be empty.
+#
+# Default is 'origin'.
+PROJECT_HOMEBREW_REPO_KEY = 'origin'
+
+
+# PROJECT_HOMEBREW_REPO_BRANCH
+# The git upstream branch. Value CANNOT be empty.
+#
+# Default is 'main' or 'master'.
+PROJECT_HOMEBREW_REPO_BRANCH = 'main'
+
+
+
+
+###########################
+# DISTRIBUTION - MSI      #
+###########################
+# PROJECT_MSI_INSTALL_DIRECTORY
+# Defines the primary directory installation value for installer execute
+# sequences ('InstallExecuteSequence'). The value can only be 'INSTALLDIR'
+# (controlled value).
+#
+# This field also acts as the flag for enabling or disabling the homebrew
+# pipeline.
+#
+# To enable it: set the value as 'INSTALLDIR'
+# To disable it: set it empty.
+#
+# Default is: 'INSTALLDIR' (enabled)
+PROJECT_MSI_INSTALL_DIRECTORY = 'INSTALLDIR'
+
+
+# PROJECT_MSI_ARP_INSTALL_LOCATION
+# Defines the CustomAction's ID for installer execute sequences
+# ('InstallExecuteSequence'). The value can only be 'ARPINSTALLLOCATION'
+# (controlled value).
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'ARPINSTALLLOCATION'
+PROJECT_MSI_ARP_INSTALL_LOCATION = 'ARPINSTALLLOCATION'
+
+
+# PROJECT_MSI_COMPRESSED_MODE
+# Defines the compress mode for the installer. It STRICTLY accepts lowercase
+# 'yes' or 'no' only.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'yes'
+PROJECT_MSI_COMPRESSED_MODE = 'yes'
+
+
+# PROJECT_MSI_INSTALLER_VERSION_UNIX
+# Defines the MSI installer version for unix workspace (where WiX is not used).
+#
+# This field CANNOT BE LEFT EMPTY and is only for unix packagers.
+#
+# Default is: '400' (Windows Installer 4.0 - included in Vista)
+PROJECT_MSI_INSTALLER_VERSION_UNIX = '400'
+
+
+# PROJECT_MSI_INSTALLER_VERSION_WINDOWS
+# Defines the MSI installer version for windows workspace (where WiX is used).
+#
+# This field CANNOT BE LEFT EMPTY and is only for windows packagers.
+#
+# Default is: '500' (WiX4)
+PROJECT_MSI_INSTALLER_VERSION_WINDOWS = '500'
+
+
+# PROJECT_MSI_CODEPAGE
+# Defines the charset of the installer.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: '65001' (UTF-8)
+PROJECT_MSI_CODEPAGE = '65001'
+
+
+# PROJECT_MSI_INSTALLER_SCOPE
+# Defines the installer scope.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'perMachine'
+PROJECT_MSI_INSTALLER_SCOPE = 'perMachine'
+
+
+# PROJECT_MSI_REGISTRY_NAME
+# Defines the name of the registry. Unless aboslute needed, it's best to leave
+# this as it is.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'InstallLocation'
+PROJECT_MSI_REGISTRY_NAME = 'InstallLocation'
+
+
+# PROJECT_MSI_REGISTRY_KEY
+# Defines the location of the registry.
+#
+# This field is shared for both unix and windows packagers.
+#
+# If this field is left empty, AutomataCI shall generate a default version
+# using the following pattern:
+#   'Software\${PROJECT_SCOPE}\InstalledProducts\${PROJECT_SKU_TITLECASE}'
+#
+# Default is: '' (leave it automated)
+PROJECT_MSI_REGISTRY_KEY = ''
+
+
+# PROJECT_MSI_FEATURES_ID
+# The ID for the entire installer's feature list. This the the root of the list
+# consisting of main feature list, optional features list, and etc.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'FeaturesAll'
+PROJECT_MSI_FEATURES_ID = 'FeaturesAll'
+
+
+# PROJECT_MSI_MAIN_FEATURE_ID
+# The ID for the compulsory features list. This consists of all the MUST HAVE
+# components to be installed at the client side.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'FeaturesMain'
+PROJECT_MSI_MAIN_FEATURE_ID = 'FeaturesMain'
+
+
+# PROJECT_MSI_REGISTRIES_ID
+# The ID for the compulsory main registries component. This handles the main
+# registeries internal implementations.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'RegValInstallLocation_comp'
+PROJECT_MSI_REGISTRIES_ID = 'RegValInstallLocation_comp'
+
+
+# PROJECT_MSI_REGISTRIES_GUID
+# The unique GUID for the compulsory main registries component. Its value is
+# similar to a UUID type.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# When in doubt, use the PROJECT_UUID and play with the last 6 characters.
+#
+# Default is: '*' - in some cases may fail.
+PROJECT_MSI_REGISTRIES_GUID = '627630F4-0814-C1FF-1E18-DDD50A958300'
+
+
+# PROJECT_MSI_BIN_FEATURE_ID
+# The ID for the executables features list. When available, the executables will
+# be in this component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'FeaturesBin'
+PROJECT_MSI_BIN_FEATURE_ID = 'FeaturesBin'
+
+
+# PROJECT_MSI_BIN_COMPONENT_ID
+# The ID for the executables component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'ComponentBin'
+PROJECT_MSI_BIN_COMPONENT_ID = 'ComponentBin'
+
+
+# PROJECT_MSI_BIN_COMPONENT_GUID
+# The unique GUID for the executables component. Its value is similar to an UUID
+# type.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# When in doubt, use the PROJECT_UUID and play with the last 6 characters.
+#
+# Default is: '*' - in some cases may fail.
+PROJECT_MSI_BIN_COMPONENT_GUID = '627630F4-0814-C1FF-1E18-DDD50A958301'
+
+
+# PROJECT_MSI_CONFIG_FEATURE_ID
+# The ID for the config files features list. When available, the config files
+# will be in this component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'FeaturesBin'
+PROJECT_MSI_CONFIG_FEATURE_ID = 'FeaturesConfig'
+
+
+# PROJECT_MSI_CONFIG_COMPONENT_ID
+# The ID for the config files component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'ComponentConfig'
+PROJECT_MSI_CONFIG_COMPONENT_ID = 'ComponentConfig'
+
+
+# PROJECT_MSI_CONFIG_COMPONENT_GUID
+# The unique GUID for the config files component. Its value is similar to
+# an UUID type.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# When in doubt, use the PROJECT_UUID and play with the last 6 characters.
+#
+# Default is: '*' - in some cases may fail.
+PROJECT_MSI_CONFIG_COMPONENT_GUID = '627630F4-0814-C1FF-1E18-DDD50A958302'
+
+
+# PROJECT_MSI_LIB_FEATURE_ID
+# The ID for the libraries features list. When available, the libraries will
+# be in this component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'FeaturesLib'
+PROJECT_MSI_LIB_FEATURE_ID = 'FeaturesLib'
+
+
+# PROJECT_MSI_LIB_COMPONENT_ID
+# The ID for the libraries component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'ComponentLib'
+PROJECT_MSI_LIB_COMPONENT_ID = 'ComponentLib'
+
+
+# PROJECT_MSI_LIB_COMPONENT_GUID
+# The unique GUID for the libraries component. Its value is similar to an UUID
+# type.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# When in doubt, use the PROJECT_UUID and play with the last 6 characters.
+#
+# Default is: '*' - in some cases may fail.
+PROJECT_MSI_LIB_COMPONENT_GUID = '627630F4-0814-C1FF-1E18-DDD50A958303'
+
+
+# PROJECT_MSI_DOCS_FEATURE_ID
+# The ID for the documenations features list. When available, the documents will
+# be in this component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# When in doubt, use the PROJECT_UUID and play with the last 6 characters.
+#
+# Default is: '*' - in some cases may fail.
+PROJECT_MSI_DOCS_FEATURE_ID = 'FeaturesDocs'
+
+
+# PROJECT_MSI_DOCS_COMPONENT_ID
+# The ID for the documentations component.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# Default is: 'ComponentDocs'
+PROJECT_MSI_DOCS_COMPONENT_ID = 'ComponentDocs'
+
+
+# PROJECT_MSI_DOCS_COMPONENT_GUID
+# The unique GUID for the documentations component. Its value is similar to an
+# UUID type.
+#
+# This field CANNOT BE LEFT EMPTY and is shared for both unix and windows
+# packagers.
+#
+# When in doubt, use the PROJECT_UUID and play with the last 6 characters.
+#
+# Default is: '*' - in some cases may fail.
+PROJECT_MSI_DOCS_COMPONENT_GUID = '627630F4-0814-C1FF-1E18-DDD50A958304'
+
+
+
+
+##########################
+# DISTRIBUTION - RPM     #
+##########################
+# PROJECT_RPM_URL
+# The .rpm' downloadable yum URL used for generating .repo source file inside
+# /etc/yum.repos.d directory. More info:
+#   (1) https://developers.redhat.com/articles/2022/10/07/whats-inside-rpm-repo-file
+#
+# Some examples:
+#   (1) GitHub Release:
+#             value: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download'
+#        actual URL: 'https://github.com/[USERNAME]/[PROJECT]/releases/latest/download/[FILE]'
+#
+# This field also acts as the flag for enabling or disabling the rpm pipeline.
+#
+# To enable : fill in the end-user downloadable URL without ending slash.
+# To disable: leave this field empty ('').
+#
+# !! IMPORTANT !! - Please avoid ending with the URL slash.
+PROJECT_RPM_URL = 'https://github.com/ChewKeanHo/HestiaKERNEL/releases/latest/download'
+
+
+# PROJECT_RPM_FLAT_MODE
+# The flag to create a flat .rpm repository directory rather than using the
+# conventional mode with repodata/ sub-directory. This is especially useful
+# for filesystem without sub-directories such as but not limited to
+# GitHub/GitLab Release page.
+#
+# To enable : leave the non-empty (e.g. 'enabled')
+# To disable: leave it empty ('')
+PROJECT_RPM_FLAT_MODE = 'enabled'
+
+
+# PROJECT_RPM_REPOXML_NAME
+# The filename of the repomd.xml file after the directory is flattened. This
+# field SHALL NOT be left empty or it will cause catastrophic, irreversible
+# effect to the release repo.
+#
+# Default is: 'repomd.xml'
+PROJECT_RPM_REPOXML_NAME = 'repomd.xml'
+
+
+# PROJECT_RPM_METALINK
+# The filename of the METALINK file after the directory is flattened. This
+# field SHALL NOT be left empty or it will cause catastrophic, irreversible
+# effect to the release repo.
+#
+# Default is: 'METALINK_RPM'
+PROJECT_RPM_METALINK = 'METALINK_RPM'
+
+
+# PROJECT_RPM_IS_NATIVE
+# Flag to determine the project is Red Hat natively sponsored package. Usually
+# is false.
+#
+# Only accept: "true/false"
+#
+# Default is 'false'.
+PROJECT_RPM_IS_NATIVE = 'false'
+
+
+# PROJECT_RPM_REPO
+# The git repository for publishing all .rpm packages using a static file
+# sharing service (e.g NGINX file hosting, GitHub/GitLab Pages, etc). When .rpm
+# is operating in the conventional mode, this repository URL shall be git clone
+# into '$PROJECT_PATH_ROOT/$PROJECT_PATH_RELEASE' directory named as 'rpm'.
+#
+# If PROJECT_RPM_REPO_TYPE is not set to git type, then this variable shall be
+# ignored.
+#
+# Note that if PROJECT_RELEASE_REPO is set, this field is ignored regardless of
+# its value.
+PROJECT_RPM_REPO = 'git@github.com:ChewKeanHo/HestiaKERNEL.wiki.git'
+
+
+# PROJECT_RPM_REPO_KEY
+# The git upstream key. Value CANNOT be empty.
+#
+# Default is 'origin'.
+PROJECT_DEB_REPO_KEY = 'origin'
+
+
+# PROJECT_RPM_REPO_BRANCH
+# The git upstream branch. Value CANNOT be empty.
+#
+# Default is 'master' or 'main'.
+PROJECT_RPM_REPO_BRANCH = 'master'
+
+
+# PROJECT_RPM_PATH
+# The relative pathing for organizing within the rpm repository directory.
+# The path is always relative to
+# '${PROJECT_PATH_ROOT}/${PROJECT_PATH_RELEASE}/rpm' directory which is the
+# PROJECT_RPM_REPO rpm repository. This is useful for cases where specific
+# directory is required (e.g. 'GitHub Pages using "docs/" directory for
+# publications).
+#
+# If left empty, AutomataCI shall use 'rpm' as its value.
+#
+# Default is 'rpm'.
+PROJECT_RPM_PATH = 'rpm'
+
+
+
+
+######################
+# PROJECT FILESYSTEM #
+######################
+# PROJECT_PATH_ROOT
+# This is an absolute pathing to locate the root directory of the project
+# repository.
+# PROJECT_PATH_ROOT = '...' # Reserved - determined by ci.cmd automatically.
+
+
+# PROJECT_PATH_AUTOMATA
+# This is the reserved pathing to PROJECT_PATH_ROOT where it locates the
+# AutomataCI working directory.
+#
+# WARNING: DO NOT attempt to change/override this naming convention. It will
+# break AutomataCI.
+# PROJECT_PATH_AUTOMATA = 'automataCI' # Reserved - determined by ci.cmd automatically.
+
+
+# LIBS_AUTOMATACI
+# This is the reserved pathing containing:
+#                 ${PROJECT_PATH_ROOT}/${PROJECT_PATH_AUTOMATA}
+# for easy service libraries import.
+# !! WARNING !! DO NOT attempt to change/override this naming convention. It
+# will break AutomataCI.
+
+
+# PROJECT_PATH_SOURCE
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# baseline source directory independent of technological section and acts as an
+# overall controls.
+PROJECT_PATH_SOURCE = 'src'
+
+
+# PROJECT_PATH_TOOLS
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's tooling directory like programming languages' engine or executables.
+PROJECT_PATH_TOOLS = 'tools'
+
+
+# PROJECT_PATH_BUILD
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's build output directory.
+PROJECT_PATH_BUILD = 'build'
+
+
+# PROJECT_PATH_BIN
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's shippable executable binraries.
+PROJECT_PATH_BIN = 'bin'
+
+
+# PROJECT_PATH_LIB
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's shippable importable libraries.
+PROJECT_PATH_LIB = 'lib'
+
+
+# PROJECT_PATH_TEMP
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's temporary workspace directory.
+PROJECT_PATH_TEMP = 'tmp'
+
+
+# PROJECT_PATH_LOG
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's log output directory.
+PROJECT_PATH_LOG = 'log'
+
+
+# PROJECT_PATH_CI
+# This is the relative pathing to PROJECT_PATH_ROOT + PROJECT_PATH_SOURCE where
+# it locates the project's tech-specific CI job directory.
+PROJECT_PATH_CI = '.ci'
+
+
+# PROJECT_PATH_PKG
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's releasable packages output directory.
+PROJECT_PATH_PKG = 'pkg'
+
+
+# PROJECT_PATH_RELEASE
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's publication output directory.
+PROJECT_PATH_RELEASE = 'releases'
+
+
+# PROJECT_PATH_DOCS
+# This is the relative pathing to PROJECT_PATH_ROOT where it locates the
+# project's documentation directory.
+PROJECT_PATH_DOCS = 'public'
