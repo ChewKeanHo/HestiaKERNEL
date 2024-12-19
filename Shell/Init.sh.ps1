@@ -64,6 +64,20 @@ function Find-Files-Recursive {
 }
 
 
+# facilitate logging
+function Logf {
+        param (
+                [Parameter(Mandatory)]
+                [string]___format,
+
+                [Parameter(ValueFromRemainingArguments)]
+                $___args
+        )
+
+        $null = Write-Host -NoNewLine ($___format -f @($___args))
+}
+
+
 # source all init scripts if available
 if (Test-Path -Path "${env:DIR_WORKSPACE}\init" -PathType Container) {
         foreach ($___script in $(Find-Files-Recursive "${env:DIR_WORKSPACE}\init" ".ps1")) {
@@ -132,6 +146,19 @@ Find_Files_Recursive() {
         # report status
         return 0
 }
+
+
+# facilitate logging
+Logf() {
+        #___format="$1"
+        #___args="${@:2}"
+
+        1>&2 printf -- "$1" "${@:2}"
+}
+
+
+# faciliate test framework
+export TEST_PASSED=0 TEST_FAILED=1
 
 
 # source all init scripts if available

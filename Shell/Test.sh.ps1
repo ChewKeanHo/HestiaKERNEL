@@ -55,10 +55,25 @@ if (Test-Path -Path "${env:DIR_WORKSPACE}\test" -PathType Container) {
                 $null = Write-Host "`n[ INFO   ] Executing '${___script}' ..."
                 $___scripts_total += 1
 
-                $null = powershell.exe -noprofile `
-                                        -executionpolicy remotesigned `
-                                        -file $___script
-                $___process = $LASTEXITCODE
+                $___job = Start-Job -ScriptBlock {
+                        param (
+                                [string]$___filepath
+                        )
+
+                        try {
+                                & $___filepath
+                                if ($LASTEXITCODE -ne $null) {
+                                        exit $LASTEXITCODE
+                                }
+                                exit 0
+                        } catch {
+                                exit 1
+                        }
+                } -ArgumentList $___script
+                $null = Wait-Job $___job
+                $___process = $___job.ChildJobs[0].JobStateInfo.Reason.ExitCode
+                $null = Remove-Job $___job
+
                 $null = Write-Host "[ INFO   ] Return code: ${___process}"
                 if ($___process -ne 0) {
                         $null = Write-Host "[ ERROR  ] Test failed."
@@ -71,15 +86,19 @@ if (Test-Path -Path "${env:DIR_WORKSPACE}\test" -PathType Container) {
 
 
 # report overall test report
-$null = Write-Host ""
-$null = Write-Host "[ INFO   ] TOTAL : ${___scripts_total}"
-$null = Write-Host "[ INFO   ] PASSED: ${___scripts_passed}"
-$null = Write-Host "[ INFO   ] FAILED: $($___scripts_total - $___scripts_passed)"
+$null = Logf @"
+`n`n
+[ INFO   ] TOTAL : {0}"
+[ INFO   ] PASSED: {1}"
+[ INFO   ] FAILED: {2}"
+
+"@ $___scripts_total $___script_passed $($___scripts_total - $___scripts_passed)
+
 if ($___scripts_total -ne $___scripts_passed) {
-        $null = Write-Host "[ FAILED  ]"
+        $null = Logf "[ FAILED  ]`n"
         exit 1
 } else {
-        $null = Write-Host "[ SUCCESS ]"
+        $null = Logf "[ SUCCESS ]`n"
         exit 0
 }
 ################################################################################
@@ -109,7 +128,7 @@ fi
 
 
 # execute all test scripts
-1>&2 printf -- "[ INFO    ] BEGIN TESTS SUITE\n"
+Logf "[ INFO    ] BEGIN TESTS SUITE\n"
 ___scripts_total=0
 ___scripts_passed=0
 if [ -d "${DIR_WORKSPACE}/test" ]; then
@@ -118,14 +137,14 @@ if [ -d "${DIR_WORKSPACE}/test" ]; then
                         continue
                 fi
 
-                1>&2 printf -- "\n[ INFO   ] Executing '${___script}' ...\n"
+                1>&2 printf -- "\n\n[ INFO   ] Executing '${___script}' ...\n"
                 ___scripts_total=$(($___scripts_total + 1))
 
                 if [ ! -x "$___script" ]; then
                         1>&2 printf -- "[ ERROR  ] Not executable!\n"
                         continue
                 fi
-                "$___script"
+                $(. "$___script")
                 ___process=$?
 
                 1>&2 printf -- "[ INFO   ] Return Code: %s\n" "$___process"
@@ -142,7 +161,7 @@ fi
 
 
 # report overall test report
-1>&2 printf -- "
+Logf "\n
 [ INFO    ] TOTAL  : %b
 [ INFO    ] PASSED : %b
 [ INFO    ] FAILED : %b
