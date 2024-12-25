@@ -26,6 +26,12 @@ HestiaKERNEL_To_Unicode_From_String() {
                 return $HestiaKERNEL_ERROR_DATA_EMPTY
         fi
 
+        if [ "${LANG%".UTF-8"}" = "$LANG" ] && [ "${LC_ALL%".UTF-8"}" = "$LC_ALL" ]; then
+                # unknown encoder
+                printf -- "%s" ""
+                return $HestiaKERNEL_ERROR_UNSUPPORTED
+        fi
+
 
         # execute
         ## POSIX Shell does not handle any character beyond Latin-1 script.
@@ -37,36 +43,31 @@ HestiaKERNEL_To_Unicode_From_String() {
         while [ ! "$___content" = "" ]; do
                 ___char="${___content%"${___content#?}"}"
                 ___content="${___content#${___char}}"
-                ___codepoint="$(printf -- "%d" "'${___char}")"
 
-                if [ $___codepoint -lt 0 ]; then
+                if [ "$LANG" = "" ] && [ "$LC_ALL" = "" ]; then
+                        # unknown language & encoder
+                        ___codepoint=63
+                elif [ ! "$(type -t od)" = "" ]; then
+                        # default to using od byte processor whenever available
+                        ___data="$(printf -- "%s" "$___char" | od -A n -t uC)"
+
                         ___codepoint=""
-
-                        if [ "$LANG" = "" ] && [ "$LC_ALL" = "" ]; then
-                                : # unknown language & encoder
-                        elif [ ! "$(type -t od)" = "" ]; then
-                                # using od byte processor
-                                ___data="$(printf -- "%s" "$___char" | od -A n -t uC)"
-
-                                ___bytes=""
-                                while [ ! "$___data" = "" ]; do
-                                        ___byte="${___data##* }"
-                                        ___data="${___data%" $___byte"}"
-                                        if [ ! "$___byte" = "" ]; then
-                                                ___bytes="${___byte}, ${___bytes}"
-                                                continue
-                                        fi
-                                done
-                                ___bytes="${___bytes%, }"
-
-                                if [ ! "${LANG%".UTF-8"}" = "$LANG" ] ||
-                                        [ ! "${LC_ALL%".UTF-8"}" = "$LC_ALL" ]; then
-                                        # encoder is UTF-8
-                                        ___codepoint="$(HestiaKERNEL_To_Unicode_From_UTF8 "$___bytes")"
+                        while [ ! "$___data" = "" ]; do
+                                ___byte="${___data##* }"
+                                ___data="${___data%" $___byte"}"
+                                if [ ! "$___byte" = "" ]; then
+                                        ___codepoint="${___byte}, ${___codepoint}"
+                                        continue
                                 fi
-                        fi
+                        done
 
-                        if [ "$___codepoint" = "" ]; then
+                        ___converted="${___converted%, }${___codepoint}, "
+                        continue
+                else
+                        # relies on conventional parsing
+                        ___codepoint="$(printf -- "%d" "'${___char}")"
+
+                        if [ $___codepoint -lt 0 ]; then
                                 # unknown encoder - replace with '?'
                                 ___codepoint=63
                         fi
@@ -74,7 +75,22 @@ HestiaKERNEL_To_Unicode_From_String() {
 
                 ___converted="${___converted}${___codepoint}, "
         done
-        printf -- "%s" "${___converted%, }"
+
+
+        # clean up tailing list
+        ___converted="${___converted%, }"
+        if [ ! "$(type -t od)" = "" ]; then
+                ___converted="${___converted%, }"
+        fi
+
+
+        # decode by known encoders
+        if [ ! "${LANG%".UTF-8"}" = "$LANG" ] ||
+                [ ! "${LC_ALL%".UTF-8"}" = "$LC_ALL" ]; then
+                # encoder is UTF-8
+                ___converted="$(HestiaKERNEL_To_Unicode_From_UTF8 "$___converted")"
+        fi
+        printf -- "%s" "$___converted"
 
 
         # report status

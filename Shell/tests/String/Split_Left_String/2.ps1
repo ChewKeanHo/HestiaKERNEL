@@ -10,7 +10,7 @@
 # the permissions and limitations set forth in the license.
 $null = Write-Host @"
 TEST CASE  :
-HestiaKERNEL_Split_String
+HestiaKERNEL-Split-String
 
 DESCRIPTION:
 Function can split a proper string when target is the same as sample.
@@ -21,9 +21,9 @@ Function can split a proper string when target is the same as sample.
 
 
 $null = Write-Host "Checking LIBS_HESTIA pathing: (${env:LIBS_HESTIA})"
-if (${env:LIBS_HESTIA} -eq "") {
+if ("${env:LIBS_HESTIA}" -eq "") {
         $null = Write-Host "[ FAILED ] variable undefined!`n"
-        exit ${env:TEST_FAILED}
+        exit 1
 }
 
 
@@ -33,7 +33,7 @@ $___target = "${env:LIBS_HESTIA}\HestiaKERNEL\String\Split_Left_String.ps1"
 $null = Write-Host "Checking Library file (${___target})..."
 if (-not (Test-Path -Path $___target)) {
         $null = Write-Host "[ FAILED ] missing file!`n"
-        exit ${env:TEST_FAILED}
+        exit 1
 }
 
 
@@ -43,7 +43,7 @@ $null = Write-Host "Import function library..."
 $null = . $___target
 if (-not (Get-Command 'HestiaKERNEL-Split-Left-String' -errorAction SilentlyContinue)) {
         $null = Write-Host "[ FAILED ] error on import!`n"
-        exit ${env:TEST_FAILED}
+        exit 1
 }
 
 
@@ -59,11 +59,6 @@ $null = Write-Host "Given input :`n|${___input}|`n"
 $null = Write-Host "Given target:`n|${___target}|`n"
 
 $___verdict = 0
-if ($___output.Length -ne $___expect.Length) {
-} else {
-        for ($i = 0; $i -lt $___output.Length; $i++) {
-        }
-}
 
 $___length = $___output.Length
 if ($___expect.Length -gt $___length) {
@@ -112,7 +107,7 @@ for ($i = 0; $i -lt $___length; $i++) {
 # assert result
 if ($___verdict -eq 0) {
         $null = Write-Host "[ PASSED ]"
-        exit ${env:TEST_PASSED}
+        exit 0
 }
 $null = Write-Host "[ FAILED ] unexpected/inconsistent output!"
-exit ${env:TEST_FAILED}
+exit 1

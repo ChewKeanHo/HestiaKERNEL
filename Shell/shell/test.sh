@@ -22,38 +22,36 @@ fi
 
 
 
-# faciliate test framework
-export TEST_PASSED=0
-export TEST_FAILED=1
+# import required libraries
+. "${LIBS_HESTIA}/HestiaKERNEL/Test/Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Test/Exec_Test_Case.sh"
 
 
 
 
 # execute all test scripts
-Logf "[ INFO    ] BEGIN TESTS SUITE\n"
 ___scripts_total=0
 ___scripts_passed=0
+___only_failed="" # value: 'true' (string)
 if [ -d "${DIR_WORKSPACE}/tests" ]; then
-        for ___script in $(Find_Files_Recursive "${DIR_WORKSPACE}/tests" ".sh"); do
-                if [ ! -f "$___script" ]; then
-                        continue
-                fi
-
-                1>&2 printf -- "\n\n[ INFO   ] Executing '${___script}' ...\n"
+        for ___script in $(HestiaKERNEL_Get_Files_FS "${DIR_WORKSPACE}/tests" ".sh" "-1"); do
+                # increase total count
                 ___scripts_total=$(($___scripts_total + 1))
 
-                if [ ! -x "$___script" ]; then
-                        1>&2 printf -- "[ ERROR  ] Not executable!\n"
+
+                # execute
+                if [ "$___only_failed" = "" ]; then
+                        1>&2 printf -- "\n\n"
+                fi
+                1>&2 printf -- "[ INFO   ] Executing '${___script}' ...\n"
+
+                HestiaKERNEL_Exec_Test_Case "$___script" "$___only_failed"
+                if [ $? -ne $HestiaKERNEL_TEST_PASSED ]; then
                         continue
                 fi
-                $(. "$___script")
-                ___process=$?
 
-                1>&2 printf -- "[ INFO   ] Return Code: |%s|\n" "$___process"
-                if [ $___process -ne 0 ]; then
-                        continue
-                fi
 
+                # increase passed count
                 ___scripts_passed=$(($___scripts_passed + 1))
         done
 fi
@@ -63,14 +61,16 @@ fi
 
 # report overall test report
 ___scripts_failed=$(($___scripts_total - $___scripts_passed))
-Logf "\n
-[ INFO    ] TOTAL  : %b
-[ INFO    ] PASSED : %b
-[ INFO    ] FAILED : %b
+1>&2 printf -- "\n
+[ RESULT ]
+==========
+TOTAL  : %b
+PASSED : %b
+FAILED : %b
+==========
 " "$___scripts_total" "$___scripts_passed" "$___scripts_failed"
 
 if [ $___scripts_total -ne $___scripts_passed ]; then
         return 1
 fi
-
 return 0

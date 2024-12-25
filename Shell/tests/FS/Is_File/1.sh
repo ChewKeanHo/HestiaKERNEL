@@ -11,10 +11,10 @@
 # the permissions and limitations set forth in the license.
 1>&2 printf --  "%s\n" "\
 TEST CASE  :
-HestiaKERNEL_Split_String
+HestiaKERNEL_Is_File
 
 DESCRIPTION:
-Function can split an empty string.
+Function can identify a proper directory path.
 "
 
 
@@ -29,7 +29,7 @@ fi
 
 
 
-___target="${LIBS_HESTIA}/HestiaKERNEL/String/Split_Left_String.sh"
+___target="${LIBS_HESTIA}/HestiaKERNEL/FS/Is_File.sh"
 1>&2 printf --  "Checking Library file (%s)\n" "$___target"
 if [ ! -f "$___target" ]; then
         1>&2 printf --  "[ FAILED ] missing file!\n"
@@ -41,7 +41,7 @@ fi
 
 1>&2 printf --  "Import function library...\n"
 . "$___target"
-___target="$(type HestiaKERNEL_Split_Left_String)"
+___target="$(type HestiaKERNEL_Is_File_FS)"
 if [ ! "${___target##*not found}"  = "$___target" ]; then
         1>&2 printf --  "[ FAILED ] error on import!\n"
         exit 1
@@ -50,27 +50,20 @@ fi
 
 
 
-___input=""
-___target="a"
-___expect=""
-___expect_fallback=""
-___output="$(HestiaKERNEL_Split_Left_String "$___input" "$___target")"
+___input="${LIBS_HESTIA}/HestiaKERNEL"
+___expect="0"
+___output="$(HestiaKERNEL_Is_File_FS "$___input")"
 ___process=$?
-1>&2 printf --  "Given sample           :\n|%s|\n\n" "$___input"
-1>&2 printf --  "Given target           :\n|%s|\n\n" "$___target"
-1>&2 printf --  "Given expect           :\n|%s|\n\n" "$___expect"
-1>&2 printf --  "Given expect (fallback):\n|%s|\n\n" "$___expect_fallback"
+1>&2 printf --  "Given input            :\n|%s|\n\n" "$___input"
+1>&2 printf --  "Given expect           :\n|not %s|\n\n" "$___expect"
 1>&2 printf --  "Given output           :\n|%s|\n\n" "$___output"
-if [ $___process -ne 0 ]; then
-        1>&2 printf --  "[ FAILED ] error on execution!\n"
-        exit 1
-fi
+1>&2 printf --  "Given return code      :\n|%s|\n\n" "$___process"
 
 
 
 
 # assert result
-if [ "$___output" = "$___expect" ] || [ "$___output" = "$___expect_fallback" ]; then
+if [ ! "$___output" = "$___expect" ]; then
         1>&2 printf --  "[ PASSED ]\n"
         exit 0
 fi

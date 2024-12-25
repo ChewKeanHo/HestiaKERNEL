@@ -25,11 +25,17 @@ ${env:DIR_TEMP} = "${env:DIR_WORKSPACE}\temp"
 
 
 # setup locale
-if (-not (Test-Path "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\Unicode\Init.ps1")) {
-        $null = Write-Host "[ ERROR ] Missing '.\libraries\HestiaKERNEL\Unicode\Init.ps1'"
-        return 1
+foreach ($___line in @(
+        "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\Unicode\Init.ps1"
+        "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\FS\Get_Files.ps1"
+)) {
+        if (-not (Test-Path $___line)) {
+                $null = Write-Host "[ ERROR ] Missing '${___line}'"
+                return 1
+        }
+
+        $null = . $___line
 }
-. "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\Unicode\Init.ps1"
 
 
 
@@ -37,37 +43,6 @@ if (-not (Test-Path "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\Unicode\Init.ps
 # re-create temp directory
 $null = Remove-Item -Recurse -Force -Path ${env:DIR_TEMP} -ErrorAction SilentlyContinue
 $null = New-Item -Path ${env:DIR_TEMP} -ItemType Directory -Force
-
-
-
-
-# facilitate recursive find function
-function Find-Files-Recursive {
-        param (
-                [string]$___directory,
-                [string]$___filter
-        )
-
-
-        # execute
-        [System.Collections.Generic.List[string]]$___list = @()
-        foreach ($___item in (Get-ChildItem $___directory)) {
-                if (Test-Path -Path $___item.FullName -PathType Container) {
-                        $___results = Find-Files-Recursive $___item.FullName $___filter
-                        foreach ($___result in $___results) {
-                                $___list.Add($___result)
-                        }
-                } elseif (Test-Path -Path $___item.FullName -PathType Leaf) {
-                        if ($___item.Name -like "*${___filter}*") {
-                                $___list.Add($___item.FullName)
-                        }
-                }
-        }
-
-
-        # report status
-        return [string[]]$___list
-}
 
 
 

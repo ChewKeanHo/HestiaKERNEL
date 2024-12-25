@@ -26,11 +26,19 @@ export DIR_TEMP="${DIR_WORKSPACE}/temp"
 
 
 # setup locale
-if [ ! -f "${DIR_WORKSPACE}/libraries/HestiaKERNEL/Unicode/Init.sh" ]; then
-        1>&2 printf -- "[ ERROR ] Missing './libraries/HestiaKERNEL/Unicode/Init.sh'\n"
-        return 1
-fi
-. "${DIR_WORKSPACE}/libraries/HestiaKERNEL/Unicode/Init.sh"
+___old_IFS="$IFS"
+while IFS="" read -r ___line || [ -n "$___line" ]; do
+        if [ ! -f "$___line" ]; then
+                1>&2 printf -- "[ ERROR ] Missing '${___line}'\n"
+                return 1
+        fi
+
+        . "$___line"
+done <<EOF
+${LIBS_HESTIA}/HestiaKERNEL/Unicode/Init.sh
+${LIBS_HESTIA}/HestiaKERNEL/FS/Get_Files.sh
+EOF
+IFS="$___old_IFS" && unset ___old_IFS
 
 
 
@@ -42,48 +50,9 @@ mkdir -p "$DIR_TEMP"
 
 
 
-# facilitate recursive find function
-Find_Files_Recursive() {
-        #___directory="$1"
-        #___filter="$2"
-
-
-        # execute
-        for ____item in "$1"/*; do
-                if [ -d "$____item" ]; then
-                        Find_Files_Recursive "$____item" "$2"
-                elif [ -f "$____item" ]; then
-                        ____filename="${____item##*/}"
-                        if [ ! "${____filename##*"$2"}" = "$____filename" ]; then
-                                printf -- "%s\n" "$____item"
-                        fi
-                fi
-        done
-
-
-        # report status
-        return 0
-}
-
-
-
-
-# facilitate logging
-Logf() {
-        # execute
-        1>&2 printf -- "$1" "${@:2}"
-
-
-        # report status
-        return 0
-}
-
-
-
-
 # source all init scripts if available
 if [ -d "${DIR_WORKSPACE}/init" ]; then
-        for ___script in $(Find_Files_Recursive "${DIR_WORKSPACE}/init" ".sh"); do
+        for ___script in $(HestiaKERNEL_Get_Files_FS "${DIR_WORKSPACE}/init" ".sh"); do
                 if [ ! -f "$___script" ]; then
                         continue
                 fi
