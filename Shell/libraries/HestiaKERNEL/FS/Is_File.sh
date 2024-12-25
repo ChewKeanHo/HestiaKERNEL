@@ -14,27 +14,25 @@
 
 
 
-HestiaKERNEL_Is_Number() {
-        #___input="$1"
+HestiaKERNEL_Is_File_FS() {
+        #___target="$1"
 
 
         # validate input
         if [ "$1" = "" ]; then
-                printf -- "%d" $HestiaKERNEL_ERROR_DATA_EMPTY
+                printf -- "%d" "$HestiaKERNEL_ERROR_DATA_EMPTY"
                 return $HestiaKERNEL_ERROR_DATA_EMPTY
         fi
 
 
         # execute
-        case "$1" in
-        *[!+-0123456789_]*)
-                printf -- "%d" $HestiaKERNEL_ERROR_DATA_INVALID
-                return $HestiaKERNEL_ERROR_DATA_INVALID
-                ;;
-        esac
+        if [ -f "$1" ]; then
+                printf -- "%d" "$HestiaKERNEL_ERROR_OK"
+                return $HestiaKERNEL_ERROR_OK
+        fi
 
 
         # report status
-        printf -- "%d" $HestiaKERNEL_ERROR_OK
-        return $HestiaKERNEL_ERROR_OK
+        printf -- "%d" "$HestiaKERNEL_ERROR_DATA_BAD"
+        return $HestiaKERNEL_ERROR_DATA_BAD
 }

@@ -9,7 +9,7 @@
 #
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
-Logf "%s\n" "\
+1>&2 printf --  "%s\n" "\
 TEST CASE  :
 HestiaKERNEL_Split_String
 
@@ -20,30 +20,31 @@ Function can split a proper string with non-ASCII character.
 
 
 
-Logf "Checking LIBS_HESTIA pathing: (%s)\n" "$LIBS_HESTIA"
+1>&2 printf --  "Checking LIBS_HESTIA pathing: (%s)\n" "$LIBS_HESTIA"
 if [ "$LIBS_HESTIA" = "" ]; then
-        Logf "[ FAILED ] variable undefined!\n"
-        exit $TEST_FAILED
+        1>&2 printf --  "[ FAILED ] variable undefined!\n"
+        exit 1
 fi
 
 
 
 
 ___target="${LIBS_HESTIA}/HestiaKERNEL/String/Split_Left_String.sh"
-Logf "Checking Library file (%s)\n" "$___target"
+1>&2 printf --  "Checking Library file (%s)\n" "$___target"
 if [ ! -f "$___target" ]; then
-        Logf "[ FAILED ] missing file!\n"
-        exit $TEST_FAILED
+        1>&2 printf --  "[ FAILED ] missing file!\n"
+        exit 1
 fi
 
 
 
 
-Logf "Import function library...\n"
+1>&2 printf --  "Import function library...\n"
 . "$___target"
-if [ $? -ne 0 ]; then
-        Logf "[ FAILED ] error on import!\n"
-        exit $TEST_FAILED
+___target="$(type HestiaKERNEL_Split_Left_String)"
+if [ ! "${___target##*not found}"  = "$___target" ]; then
+        1>&2 printf --  "[ FAILED ] error on import!\n"
+        exit 1
 fi
 
 
@@ -65,14 +66,14 @@ ___expect_fallback="\
 70"
 ___output="$(HestiaKERNEL_Split_Left_String "$___input" "$___target")"
 ___process=$?
-Logf "Given sample           :\n|%s|\n\n" "$___input"
-Logf "Given target           :\n|%s|\n\n" "$___target"
-Logf "Given expect           :\n|%s|\n\n" "$___expect"
-Logf "Given expect (fallback):\n|%s|\n\n" "$___expect_fallback"
-Logf "Given output           :\n|%s|\n\n" "$___output"
+1>&2 printf --  "Given sample           :\n|%s|\n\n" "$___input"
+1>&2 printf --  "Given target           :\n|%s|\n\n" "$___target"
+1>&2 printf --  "Given expect           :\n|%s|\n\n" "$___expect"
+1>&2 printf --  "Given expect (fallback):\n|%s|\n\n" "$___expect_fallback"
+1>&2 printf --  "Given output           :\n|%s|\n\n" "$___output"
 if [ $___process -ne 0 ]; then
-        Logf "[ FAILED ] error on execution!\n"
-        exit $TEST_FAILED
+        1>&2 printf --  "[ FAILED ] error on execution!\n"
+        exit 1
 fi
 
 
@@ -80,8 +81,8 @@ fi
 
 # assert result
 if [ "$___output" = "$___expect" ] || [ "$___output" = "$___expect_fallback" ]; then
-        Logf "[ PASSED ]\n"
-        exit $TEST_PASSED
+        1>&2 printf --  "[ PASSED ]\n"
+        exit 0
 fi
-Logf "[ FAILED ] unexpected/inconsistent output!\n"
-exit $TEST_FAILED
+1>&2 printf --  "[ FAILED ] unexpected/inconsistent output!\n"
+exit 1

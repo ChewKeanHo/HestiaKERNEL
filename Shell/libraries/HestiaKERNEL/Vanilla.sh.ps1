@@ -33,6 +33,9 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 # Windows POWERSHELL Codes                                                     #
 ################################################################################
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Errors\Error_Codes.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Get_Files.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Is_Directory.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Is_File.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\List\Is_Array_Byte.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\List\Is_Array_Number.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Number\Is_Number.ps1"
@@ -73,6 +76,8 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 . "${env:LIBS_HESTIA}\HestiaKERNEL\String\Trim_Whitespace_Left_String.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\String\Trim_Whitespace_Right_String.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\String\Trim_Whitespace_String.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Test\Codes.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Test\Exec_Test_Case.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Get_First_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Get_Last_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Index_Any_Left_Unicode.ps1"
@@ -131,6 +136,9 @@ RUN_AS_POWERSHELL
 # Unix Main Codes                                                              #
 ################################################################################
 . "${LIBS_HESTIA}/HestiaKERNEL/Errors/Error_Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/FS/Get_Files.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/FS/Is_Directory.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/FS/Is_File.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/List/Is_Array_Byte.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/List/Is_Array_Number.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Number/Is_Number.sh"
@@ -171,6 +179,8 @@ RUN_AS_POWERSHELL
 . "${LIBS_HESTIA}/HestiaKERNEL/String/Trim_Whitespace_Left_String.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/String/Trim_Whitespace_Right_String.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/String/Trim_Whitespace_String.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Test/Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Test/Exec_Test_Case.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Get_First_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Get_Last_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Index_Any_Left_Unicode.sh"
