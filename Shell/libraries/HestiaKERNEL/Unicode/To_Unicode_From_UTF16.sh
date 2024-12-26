@@ -9,7 +9,7 @@
 #
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
-. "${LIBS_HESTIA}/HestiaKERNEL/Errors/Error_Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/List/Is_Array_Byte.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/OS/Endian.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Is_UTF.sh"

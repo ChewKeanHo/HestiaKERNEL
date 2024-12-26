@@ -8,7 +8,7 @@
 #
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Errors\Error_Codes.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Error\Codes.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Is_Whitespace_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\To_Unicode_From_String.ps1"
 

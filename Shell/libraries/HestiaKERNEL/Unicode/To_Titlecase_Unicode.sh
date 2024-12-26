@@ -11,7 +11,7 @@
 # the permissions and limitations set forth in the license.
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/rune_to_title.sh"
 
-. "${LIBS_HESTIA}/HestiaKERNEL/Errors/Error_Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Is_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Is_Whitespace_Unicode.sh"
 

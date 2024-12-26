@@ -8,7 +8,7 @@
 #
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Errors\Error_Codes.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Error\Codes.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\List\Is_Array_Number.ps1"
 
 

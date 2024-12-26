@@ -9,7 +9,7 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 # Copyright 2024 (Holloway) Chew, Kean Ho <hello@hollowaykeanho.com>
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Errors\Error_Codes.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Error\Codes.ps1"
 
 
 

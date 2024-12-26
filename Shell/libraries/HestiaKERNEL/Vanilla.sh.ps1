@@ -32,7 +32,7 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 ################################################################################
 # Windows POWERSHELL Codes                                                     #
 ################################################################################
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Errors\Error_Codes.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Error\Codes.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Get_Files.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Is_Directory.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Is_File.ps1"
@@ -140,7 +140,7 @@ RUN_AS_POWERSHELL
 ################################################################################
 # Unix Main Codes                                                              #
 ################################################################################
-. "${LIBS_HESTIA}/HestiaKERNEL/Errors/Error_Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/FS/Get_Files.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/FS/Is_Directory.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/FS/Is_File.sh"
