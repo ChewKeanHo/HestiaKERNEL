@@ -11,7 +11,7 @@
 # the permissions and limitations set forth in the license.
 $null = Write-Host @"
 TEST CASE  :
-HestiaKERNEL-Get-Files
+HestiaKERNEL-FS-Get-Files
 
 DESCRIPTION:
 Function can get all files with specified filter.
@@ -42,7 +42,7 @@ if (-not (Test-Path -Path $___target)) {
 
 $null = Write-Host "Import function library..."
 $null = . $___target
-if (-not (Get-Command 'HestiaKERNEL-Get-Files-FS' -errorAction SilentlyContinue)) {
+if (-not (Get-Command 'HestiaKERNEL-FS-Get-Files' -errorAction SilentlyContinue)) {
         $null = Write-Host "[ FAILED ] error on import!`n"
         exit 1
 }
@@ -53,7 +53,7 @@ if (-not (Get-Command 'HestiaKERNEL-Get-Files-FS' -errorAction SilentlyContinue)
 $___input = "${env:LIBS_HESTIA}\HestiaKERNEL\FS"
 $___input_filter = ".ps1"
 $___expect = ""
-$___output = HestiaKERNEL-Get-Files-FS $___input $___input_filter
+$___output = HestiaKERNEL-FS-Get-Files $___input $___input_filter
 $null = Write-Host "Given input        :`n|${___input}|`n"
 $null = Write-Host "Given input filter :`n|${___input_filter}|`n"
 $null = Write-Host "Given expect       :`n|not empty|`n"

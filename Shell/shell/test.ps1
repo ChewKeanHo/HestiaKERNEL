@@ -22,9 +22,20 @@ if ($___process -ne 0) {
 
 
 # import required libraries
-. "${env:LIBS_HESTIA}\HestiaKERNEL\FS\Get_Files.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Test\Codes.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Test\Exec_Test_Case.ps1"
+foreach ($___line in @(
+        "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\Unicode\Init.ps1",
+        "${env:DIR_WORKSPACE}\libraries\HestiaKERNEL\FS\Get_Files.ps1",
+        "${env:LIBS_HESTIA}\HestiaKERNEL\Test\Codes.ps1",
+        "${env:LIBS_HESTIA}\HestiaKERNEL\Test\Exec_Test_Case.ps1"
+)) {
+        $null = Write-Host "Importing '${___line}' ..."
+        if (-not (Test-Path $___line)) {
+                $null = Write-Host "[ ERROR ] Missing library."
+                return 1
+        }
+
+        $null = . $___line
+}
 
 
 
@@ -37,7 +48,7 @@ if (Test-Path -Path "${env:DIR_WORKSPACE}\tests" -PathType Container) {
         foreach (
                 $___script
                 in
-                $(HestiaKERNEL-Get-Files-FS "${env:DIR_WORKSPACE}\tests" ".ps1" -1)
+                $(HestiaKERNEL-FS-Get-Files "${env:DIR_WORKSPACE}\tests" ".ps1" -1)
         ) {
                 # increase total count
                 $___scripts_total += 1

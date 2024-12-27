@@ -23,8 +23,22 @@ fi
 
 
 # import required libraries
-. "${LIBS_HESTIA}/HestiaKERNEL/Test/Codes.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/Test/Exec_Test_Case.sh"
+___old_IFS="$IFS"
+while IFS="" read -r ___line || [ -n "$___line" ]; do
+        1>&2 printf -- "Importing '${___line}' ...\n"
+        if [ ! -f "$___line" ]; then
+                1>&2 printf -- "[ ERROR ] Missing library.\n"
+                return 1
+        fi
+
+        . "$___line"
+done <<EOF
+${LIBS_HESTIA}/HestiaKERNEL/Unicode/Init.sh
+${LIBS_HESTIA}/HestiaKERNEL/FS/Get_Files.sh
+${LIBS_HESTIA}/HestiaKERNEL/Test/Codes.sh
+${LIBS_HESTIA}/HestiaKERNEL/Test/Exec_Test_Case.sh
+EOF
+IFS="$___old_IFS" && unset ___old_IFS
 
 
 
@@ -34,7 +48,7 @@ ___scripts_total=0
 ___scripts_passed=0
 ___only_failed="" # value: 'true' (string)
 if [ -d "${DIR_WORKSPACE}/tests" ]; then
-        for ___script in $(HestiaKERNEL_Get_Files_FS "${DIR_WORKSPACE}/tests" ".sh" "-1"); do
+        for ___script in $(HestiaKERNEL_FS_Get_Files "${DIR_WORKSPACE}/tests" ".sh" "-1"); do
                 # increase total count
                 ___scripts_total=$(($___scripts_total + 1))
 

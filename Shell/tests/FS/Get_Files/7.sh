@@ -11,7 +11,7 @@
 # the permissions and limitations set forth in the license.
 1>&2 printf --  "%s\n" "\
 TEST CASE  :
-HestiaKERNEL_Get_Files
+HestiaKERNEL_FS_Get_Files
 
 DESCRIPTION:
 Function can handle empty path with specified filter and controlled recursively.
@@ -41,7 +41,7 @@ fi
 
 1>&2 printf --  "Import function library...\n"
 . "$___target"
-___target="$(type HestiaKERNEL_Get_Files_FS)"
+___target="$(type HestiaKERNEL_FS_Get_Files)"
 if [ ! "${___target##*not found}"  = "$___target" ]; then
         1>&2 printf --  "[ FAILED ] error on import!\n"
         exit 1
@@ -60,7 +60,7 @@ ___input_recursive="1"
 ___expect=""
 1>&2 printf --  "Given expect           :\n|%s|\n\n" "not empty"
 
-___output="$(HestiaKERNEL_Get_Files_FS "$___input" "$___input_filter" "$___input_recursive")"
+___output="$(HestiaKERNEL_FS_Get_Files "$___input" "$___input_filter" "$___input_recursive")"
 ___process=$?
 1>&2 printf --  "Given output           :\n|%s|\n\n" "$___output"
 1>&2 printf --  "Given exit code        :\n|%s|\n\n" "$___process"

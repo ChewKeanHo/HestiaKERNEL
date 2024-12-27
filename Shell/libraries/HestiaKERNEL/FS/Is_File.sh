@@ -14,7 +14,7 @@
 
 
 
-HestiaKERNEL_Is_File_FS() {
+HestiaKERNEL_FS_Is_File() {
         #___target="$1"
 
 

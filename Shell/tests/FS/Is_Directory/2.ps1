@@ -11,7 +11,7 @@
 # the permissions and limitations set forth in the license.
 $null = Write-Host @"
 TEST CASE  :
-HestiaKERNEL-Is-Directory
+HestiaKERNEL-FS-Is-Directory
 
 DESCRIPTION:
 Function can operate with empty string.
@@ -42,7 +42,7 @@ if (-not (Test-Path -Path $___target)) {
 
 $null = Write-Host "Import function library..."
 $null = . $___target
-if (-not (Get-Command 'HestiaKERNEL-Is-Directory-FS' -errorAction SilentlyContinue)) {
+if (-not (Get-Command 'HestiaKERNEL-FS-Is-Directory' -errorAction SilentlyContinue)) {
         $null = Write-Host "[ FAILED ] error on import!`n"
         exit 1
 }
@@ -52,9 +52,9 @@ if (-not (Get-Command 'HestiaKERNEL-Is-Directory-FS' -errorAction SilentlyContin
 
 $___input = ""
 $___expect = 0
-$___output = HestiaKERNEL-Is-Directory-FS $___input
+$___output = HestiaKERNEL-FS-Is-Directory $___input
 $null = Write-Host "Given input  :`n|${___input}|`n"
-$null = Write-Host "Given expect :`n|${___expect}|`n"
+$null = Write-Host "Given expect :`n|not ${___expect}|`n"
 $null = Write-Host "Got Output   :`n|${___output}|`n"
 
 

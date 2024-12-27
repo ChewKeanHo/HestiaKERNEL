@@ -11,7 +11,7 @@
 # the permissions and limitations set forth in the license.
 $null = Write-Host @"
 TEST CASE  :
-HestiaKERNEL-Is-File
+HestiaKERNEL-FS-Is-File
 
 DESCRIPTION:
 Function can identify a proper directory path.
@@ -42,7 +42,7 @@ if (-not (Test-Path -Path $___target)) {
 
 $null = Write-Host "Import function library..."
 $null = . $___target
-if (-not (Get-Command 'HestiaKERNEL-Is-File-FS' -errorAction SilentlyContinue)) {
+if (-not (Get-Command 'HestiaKERNEL-FS-Is-File' -errorAction SilentlyContinue)) {
         $null = Write-Host "[ FAILED ] error on import!`n"
         exit 1
 }
@@ -52,7 +52,7 @@ if (-not (Get-Command 'HestiaKERNEL-Is-File-FS' -errorAction SilentlyContinue)) 
 
 $___input = "${env:LIBS_HESTIA}\HestiaKERNEL"
 $___expect = 0
-$___output = HestiaKERNEL-Is-File-FS $___input
+$___output = HestiaKERNEL-FS-Is-File $___input
 $null = Write-Host "Given input  :`n|${___input}|`n"
 $null = Write-Host "Given expect :`n|not ${___expect}|`n"
 $null = Write-Host "Got Output   :`n|${___output}|`n"

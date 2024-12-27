@@ -11,7 +11,7 @@
 # the permissions and limitations set forth in the license.
 1>&2 printf --  "%s\n" "\
 TEST CASE  :
-HestiaKERNEL_Is_File
+HestiaKERNEL_FS_Is_File
 
 DESCRIPTION:
 Function can operate with invalid path.
@@ -41,7 +41,7 @@ fi
 
 1>&2 printf --  "Import function library...\n"
 . "$___target"
-___target="$(type HestiaKERNEL_Is_File_FS)"
+___target="$(type HestiaKERNEL_FS_Is_File)"
 if [ ! "${___target##*not found}"  = "$___target" ]; then
         1>&2 printf --  "[ FAILED ] error on import!\n"
         exit 1
@@ -52,7 +52,7 @@ fi
 
 ___input="${LIBS_HESTIA}/HestiaKERNEL/FS/aregRWEGaegeagaeG"
 ___expect="0"
-___output="$(HestiaKERNEL_Is_File_FS "$___input")"
+___output="$(HestiaKERNEL_FS_Is_File "$___input")"
 ___process=$?
 1>&2 printf --  "Given input            :\n|%s|\n\n" "$___input"
 1>&2 printf --  "Given expect           :\n|not %s|\n\n" "$___expect"

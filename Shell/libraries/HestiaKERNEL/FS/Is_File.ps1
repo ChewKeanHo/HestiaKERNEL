@@ -13,7 +13,7 @@
 
 
 
-function HestiaKERNEL-Is-File-FS {
+function HestiaKERNEL-FS-Is-File {
         param (
                 [string]$___target
         )

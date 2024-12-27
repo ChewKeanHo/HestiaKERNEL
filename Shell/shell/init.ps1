@@ -49,7 +49,7 @@ $null = New-Item -Path ${env:DIR_TEMP} -ItemType Directory -Force
 
 # source all init scripts if available
 if (Test-Path -Path "${env:DIR_WORKSPACE}\init" -PathType Container) {
-        foreach ($___script in $(Find-Files-Recursive "${env:DIR_WORKSPACE}\init" ".ps1")) {
+        foreach ($___script in $(HestiaKERNEL-FS-Get-Files "${env:DIR_WORKSPACE}\init" ".ps1")) {
                 $null = Write-Host "Sourcing ${___script} ..."
                 $___process = . $___script
                 if ($___process -ne 0) {

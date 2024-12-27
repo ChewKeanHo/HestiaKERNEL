@@ -25,7 +25,7 @@ export DIR_TEMP="${DIR_WORKSPACE}/temp"
 
 
 
-# setup locale
+# import required libraries
 ___old_IFS="$IFS"
 while IFS="" read -r ___line || [ -n "$___line" ]; do
         if [ ! -f "$___line" ]; then
@@ -52,7 +52,7 @@ mkdir -p "$DIR_TEMP"
 
 # source all init scripts if available
 if [ -d "${DIR_WORKSPACE}/init" ]; then
-        for ___script in $(HestiaKERNEL_Get_Files_FS "${DIR_WORKSPACE}/init" ".sh"); do
+        for ___script in $(HestiaKERNEL_FS_Get_Files "${DIR_WORKSPACE}/init" ".sh"); do
                 if [ ! -f "$___script" ]; then
                         continue
                 fi

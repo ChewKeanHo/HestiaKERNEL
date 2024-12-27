@@ -14,7 +14,7 @@
 
 
 
-HestiaKERNEL_Is_Directory_FS() {
+HestiaKERNEL_FS_Is_Directory() {
         #___target="$1"
 
 

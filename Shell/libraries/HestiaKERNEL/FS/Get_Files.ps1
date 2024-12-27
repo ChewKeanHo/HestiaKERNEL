@@ -15,7 +15,7 @@
 
 
 
-function HestiaKERNEL-Get-Files-FS {
+function HestiaKERNEL-FS-Get-Files {
         param (
                 [string]$___directory,
                 [string]$___filter,
@@ -24,7 +24,7 @@ function HestiaKERNEL-Get-Files-FS {
 
 
         # validate input
-        if ($(HestiaKERNEL-Is-Directory-FS $___directory) -ne ${env:HestiaKERNEL_ERROR_OK}) {
+        if ($(HestiaKERNEL-FS-Is-Directory $___directory) -ne ${env:HestiaKERNEL_ERROR_OK}) {
                 return [string[]]@()
         }
 
@@ -32,15 +32,15 @@ function HestiaKERNEL-Get-Files-FS {
         # execute
         [System.Collections.Generic.List[string]]$___list = @()
         foreach ($____item in (Get-ChildItem $___directory)) {
-                if ($(HestiaKERNEL-Is-Directory-FS $____item) -eq ${env:HestiaKERNEL_ERROR_OK}) {
+                if ($(HestiaKERNEL-FS-Is-Directory $____item) -eq ${env:HestiaKERNEL_ERROR_OK}) {
                         if ($___recursive -eq 0) {
                                 continue
                         } elseif ($___recursive -gt 0) {
-                                $___results = HestiaKERNEL-Get-Files-FS $____item.FullName `
+                                $___results = HestiaKERNEL-FS-Get-Files $____item.FullName `
                                                                         $___filter `
                                                                         ($___recursive - 1)
                         } else {
-                                $___results = HestiaKERNEL-Get-Files-FS $____item.FullName `
+                                $___results = HestiaKERNEL-FS-Get-Files $____item.FullName `
                                                                         $___filter `
                                                                         -1
                         }
@@ -48,7 +48,7 @@ function HestiaKERNEL-Get-Files-FS {
                         foreach ($___result in $___results) {
                                 $___list.Add($___result)
                         }
-                } elseif ($(HestiaKERNEL-Is-File-FS $____item) -eq ${env:HestiaKERNEL_ERROR_OK}) {
+                } elseif ($(HestiaKERNEL-FS-Is-File $____item) -eq ${env:HestiaKERNEL_ERROR_OK}) {
                         if ($____item.Name -like "*${___filter}*") {
                                 $___list.Add($____item.FullName)
                         }

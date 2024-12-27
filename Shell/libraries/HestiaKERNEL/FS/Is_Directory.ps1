@@ -13,7 +13,7 @@
 
 
 
-function HestiaKERNEL-Is-Directory-FS {
+function HestiaKERNEL-FS-Is-Directory {
         param (
                 [string]$___target
         )
