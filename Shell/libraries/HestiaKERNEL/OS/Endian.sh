@@ -14,5 +14,5 @@
 
 
 # endian type
-HestiaKERNEL_ENDIAN_BIG=0               # default
-HestiaKERNEL_ENDIAN_LITTLE=1
+HestiaKERNEL_OS_ENDIAN_BIG=0               # default
+HestiaKERNEL_OS_ENDIAN_LITTLE=1

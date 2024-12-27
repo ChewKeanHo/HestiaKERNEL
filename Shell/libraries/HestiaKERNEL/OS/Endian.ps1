@@ -13,5 +13,5 @@
 
 
 # endian type
-${env:HestiaKERNEL_ENDIAN_BIG} = 0              # default
-${env:HestiaKERNEL_ENDIAN_LITTLE} = 1
+${env:HestiaKERNEL_OS_ENDIAN_BIG} = 0              # default
+${env:HestiaKERNEL_OS_ENDIAN_LITTLE} = 1

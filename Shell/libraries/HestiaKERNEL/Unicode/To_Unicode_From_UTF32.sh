@@ -46,22 +46,22 @@ HestiaKERNEL_To_Unicode_From_UTF32() {
 
 
         # check for data encoder
-        ___endian=$HestiaKERNEL_ENDIAN_BIG
+        ___endian=$HestiaKERNEL_OS_ENDIAN_BIG
         ___ignore=0
         ___output="$(HestiaKERNEL_Is_UTF "$1")"
         if [ ! "${___output#*"$HestiaKERNEL_UTF32LE_BOM"}" = "$___output" ]; then
                 # it's UTF32LE with BOM marker
-                ___endian=$HestiaKERNEL_ENDIAN_LITTLE
+                ___endian=$HestiaKERNEL_OS_ENDIAN_LITTLE
                 ___ignore=4
         elif [ ! "${___output#*"$HestiaKERNEL_UTF32BE_BOM"}" = "$___output" ]; then
                 # it's UTF32BE with BOM marker
-                ___endian=$HestiaKERNEL_ENDIAN_BIG
+                ___endian=$HestiaKERNEL_OS_ENDIAN_BIG
                 ___ignore=4
         elif [ ! "${___output#*"$HestiaKERNEL_UTF32LE"}" = "$___output" ] &&
                 [ ! "${___output#*"$HestiaKERNEL_UTF32BE"}" = "$___output" ]; then
                 # both UTF32LE or UTF32BE can be a candidate
-                if [ "$2" = "$HestiaKERNEL_ENDIAN_LITTLE" ] ||
-                        [ "$2" = "$HestiaKERNEL_ENDIAN_BIG" ]; then
+                if [ "$2" = "$HestiaKERNEL_OS_ENDIAN_LITTLE" ] ||
+                        [ "$2" = "$HestiaKERNEL_OS_ENDIAN_BIG" ]; then
                         ___endian="$2" # If there is a valid hint, take the hint
                 else
                         : # keep the default
@@ -98,7 +98,7 @@ HestiaKERNEL_To_Unicode_From_UTF32() {
                 case "$___state" in
                 3)
                         case "$___endian" in
-                        $HestiaKERNEL_ENDIAN_LITTLE)
+                        $HestiaKERNEL_OS_ENDIAN_LITTLE)
                                 ___byte=$(($___byte << 24))
                                 ___char=$(($___char | $___byte))
                                 ;;
@@ -112,7 +112,7 @@ HestiaKERNEL_To_Unicode_From_UTF32() {
                         ;;
                 2)
                         case "$___endian" in
-                        $HestiaKERNEL_ENDIAN_LITTLE)
+                        $HestiaKERNEL_OS_ENDIAN_LITTLE)
                                 ___byte=$(($___byte << 16))
                                 ___char=$(($___char | $___byte))
                                 ;;
@@ -126,7 +126,7 @@ HestiaKERNEL_To_Unicode_From_UTF32() {
                         ;;
                 1)
                         case "$___endian" in
-                        $HestiaKERNEL_ENDIAN_LITTLE)
+                        $HestiaKERNEL_OS_ENDIAN_LITTLE)
                                 ___byte=$(($___byte << 8))
                                 ___char=$(($___char | $___byte))
                                 ;;
@@ -140,7 +140,7 @@ HestiaKERNEL_To_Unicode_From_UTF32() {
                         ;;
                 *)
                         case "$___endian" in
-                        $HestiaKERNEL_ENDIAN_LITTLE)
+                        $HestiaKERNEL_OS_ENDIAN_LITTLE)
                                 ___char=$___byte
                                 ;;
                         *)

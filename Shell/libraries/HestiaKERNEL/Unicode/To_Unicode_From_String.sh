@@ -10,6 +10,7 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 . "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/OS/Get_Encoder_String.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_Unicode_From_UTF8.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Unicode.sh"
 
@@ -26,7 +27,7 @@ HestiaKERNEL_To_Unicode_From_String() {
                 return $HestiaKERNEL_ERROR_DATA_EMPTY
         fi
 
-        if [ "${LANG%".UTF-8"}" = "$LANG" ] && [ "${LC_ALL%".UTF-8"}" = "$LC_ALL" ]; then
+        if [ ! "$(HestiaKERNEL_OS_Get_Encoder_String)" = "$HestiaKERNEL_UTF8" ]; then
                 # unknown encoder
                 printf -- "%s" ""
                 return $HestiaKERNEL_ERROR_UNSUPPORTED
@@ -77,7 +78,7 @@ HestiaKERNEL_To_Unicode_From_String() {
         done
 
 
-        # clean up tailing list
+        # clean up tailing commas
         ___converted="${___converted%, }"
         if [ ! "$(type -t od)" = "" ]; then
                 ___converted="${___converted%, }"
@@ -85,8 +86,7 @@ HestiaKERNEL_To_Unicode_From_String() {
 
 
         # decode by known encoders
-        if [ ! "${LANG%".UTF-8"}" = "$LANG" ] ||
-                [ ! "${LC_ALL%".UTF-8"}" = "$LC_ALL" ]; then
+        if [ "$(HestiaKERNEL_OS_Get_Encoder_String)" = "$HestiaKERNEL_UTF8" ]; then
                 # encoder is UTF-8
                 ___converted="$(HestiaKERNEL_To_Unicode_From_UTF8 "$___converted")"
         fi

@@ -45,16 +45,16 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
 
 
         # check for data encoder
-        $___endian = ${env:HestiaKERNEL_ENDIAN_BIG}
+        $___endian = ${env:HestiaKERNEL_OS_ENDIAN_BIG}
         $___ignore = 0
         $___output = HestiaKERNEL-Is-UTF $___input_content
         if ($($___output -replace "${env:HestiaKERNEL_UTF32LE_BOM}", '') -ne $___output) {
                 # it's UTF32LE with BOM marker
-                $___endian = ${env:HestiaKERNEL_ENDIAN_LITTLE}
+                $___endian = ${env:HestiaKERNEL_OS_ENDIAN_LITTLE}
                 $___ignore = 4
         } elseif ($($___output -replace "${env:HestiaKERNEL_UTF32BE_BOM}", '') -ne $___output) {
                 # it's UTF32BE with BOM marker
-                $___endian = ${env:HestiaKERNEL_ENDIAN_BIG}
+                $___endian = ${env:HestiaKERNEL_OS_ENDIAN_BIG}
                 $___ignore = 4
         } elseif (
                 ($($___output -replace "${env:HestiaKERNEL_UTF32LE}", '') -ne $___output) -and
@@ -62,8 +62,8 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
         ) {
                 # both UTF32LE or UTF32BE can be a candidate
                 if (
-                        ($___input_endian -eq ${env:HestiaKERNEL_ENDIAN_LITTLE}) -or
-                        ($___input_endian -eq ${env:HestiaKERNEL_ENDIAN_BIG})
+                        ($___input_endian -eq ${env:HestiaKERNEL_OS_ENDIAN_LITTLE}) -or
+                        ($___input_endian -eq ${env:HestiaKERNEL_OS_ENDIAN_BIG})
                 ) {
                         $___endian = $___input_endian # If there is a valid hint, take the hint
                 } else {
@@ -92,7 +92,7 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
                 switch ($___state) {
                 3 {
                         switch ($___endian) {
-                        ${env:HestiaKERNEL_ENDIAN_LITTLE} {
+                        ${env:HestiaKERNEL_OS_ENDIAN_LITTLE} {
                                 $___byte = $___byte -shl 24
                                 $___char = $___char -bor $___byte
                         } default {
@@ -103,7 +103,7 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
                         $___state = 0
                 } 2 {
                         switch ($___endian) {
-                        ${env:HestiaKERNEL_ENDIAN_LITTLE} {
+                        ${env:HestiaKERNEL_OS_ENDIAN_LITTLE} {
                                 $___byte = $___byte -shl 16
                                 $___char = $___char -bor $___byte
                         } default {
@@ -114,7 +114,7 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
                         $___state = 3
                 } 1 {
                         switch ($___endian) {
-                        ${env:HestiaKERNEL_ENDIAN_LITTLE} {
+                        ${env:HestiaKERNEL_OS_ENDIAN_LITTLE} {
                                 $___byte = $___byte -shl 8
                                 $___char = $___char -bor $___byte
                         } default {
@@ -125,7 +125,7 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
                         $___state = 2
                 } default {
                         switch ($___endian) {
-                        ${env:HestiaKERNEL_ENDIAN_LITTLE} {
+                        ${env:HestiaKERNEL_OS_ENDIAN_LITTLE} {
                                 $___char = $___byte
                         } default {
                                 $___char = $___byte -shl 24

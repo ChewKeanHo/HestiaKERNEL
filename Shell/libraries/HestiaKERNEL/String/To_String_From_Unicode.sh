@@ -10,7 +10,7 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 . "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/OS/Get_String_Encoder.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/OS/Get_Encoder_String.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Is_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_UTF8_From_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_UTF16_From_Unicode.sh"
@@ -54,7 +54,7 @@ HestiaKERNEL_To_String_From_Unicode() {
 
         # process HestiaKERNEL.Unicode data type
         ___content="${___converted%, }"
-        case "$(HestiaKERNEL_Get_String_Encoder)" in
+        case "$(HestiaKERNEL_OS_Get_Encoder_String)" in
         $HestiaKERNEL_UTF8)
                 ___content="$(HestiaKERNEL_To_UTF8_From_Unicode "$___content")"
                 ;;

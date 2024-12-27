@@ -45,16 +45,16 @@ function HestiaKERNEL-To-Unicode-From-UTF16 {
 
 
         # check for data encoder
-        $___endian = ${env:HestiaKERNEL_ENDIAN_BIG}
+        $___endian = ${env:HestiaKERNEL_OS_ENDIAN_BIG}
         $___ignore = 0
         $___output = HestiaKERNEL-Is-UTF $___input_content
         if ($($___output -replace "${env:HestiaKERNEL_UTF16LE_BOM}", '') -ne $___output) {
                 # it's UTF16LE with BOM marker
-                $___endian = ${env:HestiaKERNEL_ENDIAN_LITTLE}
+                $___endian = ${env:HestiaKERNEL_OS_ENDIAN_LITTLE}
                 $___ignore = 2
         } elseif ($($___output -replace "${env:HestiaKERNEL_UTF16BE_BOM}", '') -ne $___output) {
                 # it's UTF16BE with BOM marker
-                $___endian = ${env:HestiaKERNEL_ENDIAN_BIG}
+                $___endian = ${env:HestiaKERNEL_OS_ENDIAN_BIG}
                 $___ignore = 2
         } elseif (
                 ($($___output -replace "${env:HestiaKERNEL_UTF16LE}", '') -ne $___output) -and
@@ -62,8 +62,8 @@ function HestiaKERNEL-To-Unicode-From-UTF16 {
         ) {
                 # both UTF16LE or UTF16BE can be a candidate
                 if (
-                        ($___input_endian -eq ${env:HestiaKERNEL_ENDIAN_LITTLE}) -or
-                        ($___input_endian -eq ${env:HestiaKERNEL_ENDIAN_BIG})
+                        ($___input_endian -eq ${env:HestiaKERNEL_OS_ENDIAN_LITTLE}) -or
+                        ($___input_endian -eq ${env:HestiaKERNEL_OS_ENDIAN_BIG})
                 ) {
                         $___endian = $___input_endian # If there is a valid hint, take the hint
                 } else {
@@ -93,7 +93,7 @@ function HestiaKERNEL-To-Unicode-From-UTF16 {
                 switch ($___state) {
                 1 {
                         switch ($___endian) {
-                        ${env:HestiaKERNEL_ENDIAN_LITTLE} {
+                        ${env:HestiaKERNEL_OS_ENDIAN_LITTLE} {
                                 $___byte = $___byte -shl 8
                                 $___char = $___char -bor $___byte
                         } default {
@@ -154,7 +154,7 @@ function HestiaKERNEL-To-Unicode-From-UTF16 {
                         $___state = 0
                 } default {
                         switch ($___endian) {
-                        ${env:HestiaKERNEL_ENDIAN_LITTLE} {
+                        ${env:HestiaKERNEL_OS_ENDIAN_LITTLE} {
                                 $___char = $___byte
                         } default {
                                 $___char = $___byte -shl 8

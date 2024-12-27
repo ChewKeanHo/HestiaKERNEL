@@ -45,7 +45,7 @@ HestiaKERNEL_To_Unicode_From_UTF8() {
 
 
         # check for data encoder
-        ___endian=$HestiaKERNEL_ENDIAN_BIG
+        ___endian=$HestiaKERNEL_OS_ENDIAN_BIG
         ___ignore=0
         ___output="$(HestiaKERNEL_Is_UTF "$1")"
         if [ ! "${___output#*"$HestiaKERNEL_UTF8_BOM"}" = "$___output" ]; then

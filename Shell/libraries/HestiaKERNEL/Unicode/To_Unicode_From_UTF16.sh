@@ -46,22 +46,22 @@ HestiaKERNEL_To_Unicode_From_UTF16() {
 
 
         # check for data encoder
-        ___endian=$HestiaKERNEL_ENDIAN_BIG
+        ___endian=$HestiaKERNEL_OS_ENDIAN_BIG
         ___ignore=0
         ___output="$(HestiaKERNEL_Is_UTF "$1")"
         if [ ! "${___output#*"$HestiaKERNEL_UTF16LE_BOM"}" = "$___output" ]; then
                 # it's UTF16LE with BOM marker
-                ___endian=$HestiaKERNEL_ENDIAN_LITTLE
+                ___endian=$HestiaKERNEL_OS_ENDIAN_LITTLE
                 ___ignore=2
         elif [ ! "${___output#*"$HestiaKERNEL_UTF16BE_BOM"}" = "$___output" ]; then
                 # it's UTF16BE with BOM marker
-                ___endian=$HestiaKERNEL_ENDIAN_BIG
+                ___endian=$HestiaKERNEL_OS_ENDIAN_BIG
                 ___ignore=2
         elif [ ! "${___output#*"$HestiaKERNEL_UTF16LE"}" = "$___output" ] &&
                 [ ! "${___output#*"$HestiaKERNEL_UTF16BE"}" = "$___output" ]; then
                 # both UTF16LE or UTF16BE can be a candidate
-                if [ "$2" = "$HestiaKERNEL_ENDIAN_LITTLE" ] ||
-                        [ "$2" = "$HestiaKERNEL_ENDIAN_BIG" ]; then
+                if [ "$2" = "$HestiaKERNEL_OS_ENDIAN_LITTLE" ] ||
+                        [ "$2" = "$HestiaKERNEL_OS_ENDIAN_BIG" ]; then
                         ___endian="$2" # If there is a valid hint, take the hint
                 else
                         : # keep the default
@@ -99,7 +99,7 @@ HestiaKERNEL_To_Unicode_From_UTF16() {
                 case "$___state" in
                 1)
                         case "$___endian" in
-                        $HestiaKERNEL_ENDIAN_LITTLE)
+                        $HestiaKERNEL_OS_ENDIAN_LITTLE)
                                 ___byte=$(($___byte << 8))
                                 ___char=$(($___char | $___byte))
                                 ;;
@@ -164,7 +164,7 @@ HestiaKERNEL_To_Unicode_From_UTF16() {
                         ;;
                 *)
                         case "$___endian" in
-                        $HestiaKERNEL_ENDIAN_LITTLE)
+                        $HestiaKERNEL_OS_ENDIAN_LITTLE)
                                 ___char=$___byte
                                 ;;
                         *)

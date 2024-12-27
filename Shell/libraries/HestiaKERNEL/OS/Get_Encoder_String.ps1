@@ -13,7 +13,7 @@
 
 
 
-function HestiaKERNEL-Get-String-Encoder {
+function HestiaKERNEL-OS-Get-Encoder-String {
         # execute
         switch ($OutputEncoding.BodyName.ToUpper()) {
         "UTF-8" {
