@@ -21,7 +21,7 @@ function HestiaKERNEL-Is-Punctuation-Unicode {
 
 
         # validate input
-        if ($(HestiaKERNEL-Is-Number $___unicode) -ne ${env:HestiaKERNEL_ERROR_OK}) {
+        if ($(HestiaKERNEL-NUMBER-Is-Number $___unicode) -ne ${env:HestiaKERNEL_ERROR_OK}) {
                 return ${env:HestiaKERNEL_ERROR_DATA_INVALID}
         }
 

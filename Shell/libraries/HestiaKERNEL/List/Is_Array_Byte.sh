@@ -42,7 +42,7 @@ HestiaKERNEL_Is_Array_Byte() {
                         ___content="${___content#, }"
                 fi
 
-                if [ "$(HestiaKERNEL_Is_Number "$___byte")" -ne $HestiaKERNEL_ERROR_OK ]; then
+                if [ $(HestiaKERNEL_NUMBER_Is_Number "$___byte") -ne $HestiaKERNEL_ERROR_OK ]; then
                         printf -- "%d" $HestiaKERNEL_ERROR_DATA_INVALID
                         return $HestiaKERNEL_ERROR_DATA_INVALID
                 fi

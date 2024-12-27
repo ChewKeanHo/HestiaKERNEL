@@ -14,7 +14,7 @@
 
 
 
-HestiaKERNEL_Is_Number() {
+HestiaKERNEL_NUMBER_Is_Number() {
         #___input="$1"
 
 

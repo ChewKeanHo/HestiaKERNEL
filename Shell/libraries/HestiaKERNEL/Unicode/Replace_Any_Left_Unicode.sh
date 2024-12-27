@@ -43,12 +43,12 @@ HestiaKERNEL_Replace_Any_Left_Unicode() {
         fi
 
         ___count=-1
-        if [ $(HestiaKERNEL_Is_Number "$4") -eq $HestiaKERNEL_ERROR_OK ]; then
+        if [ $(HestiaKERNEL_NUMBER_Is_Number "$4") -eq $HestiaKERNEL_ERROR_OK ]; then
                 ___count="$4"
         fi
 
         ___ignore=-1
-        if [ $(HestiaKERNEL_Is_Number "$5") -eq $HestiaKERNEL_ERROR_OK ]; then
+        if [ $(HestiaKERNEL_NUMBER_Is_Number "$5") -eq $HestiaKERNEL_ERROR_OK ]; then
                 ___ignore="$5"
         fi
 

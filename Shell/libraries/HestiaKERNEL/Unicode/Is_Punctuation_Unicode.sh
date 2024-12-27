@@ -20,7 +20,7 @@ HestiaKERNEL_Is_Punctuation_Unicode() {
 
 
         # validate input
-        if [ "$(HestiaKERNEL_Is_Number "$1")" -ne $HestiaKERNEL_ERROR_OK ]; then
+        if [ "$(HestiaKERNEL_NUMBER_Is_Number "$1")" -ne $HestiaKERNEL_ERROR_OK ]; then
                 printf -- "%d" $HestiaKERNEL_ERROR_DATA_INVALID
                 return $HestiaKERNEL_ERROR_DATA_INVALID
         fi

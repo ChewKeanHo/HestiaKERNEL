@@ -14,7 +14,7 @@
 
 
 
-function HestiaKERNEL-Is-Number {
+function HestiaKERNEL-NUMBER-Is-Number {
         param (
                 [object]$___content
         )

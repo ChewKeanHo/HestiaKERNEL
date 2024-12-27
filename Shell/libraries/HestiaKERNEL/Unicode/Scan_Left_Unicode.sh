@@ -36,12 +36,12 @@ HestiaKERNEL_Scan_Left_Unicode() {
         fi
 
         ___count=-1
-        if [ $(HestiaKERNEL_Is_Number "$3") -eq $HestiaKERNEL_ERROR_OK ]; then
+        if [ $(HestiaKERNEL_NUMBER_Is_Number "$3") -eq $HestiaKERNEL_ERROR_OK ]; then
                 ___count="$3"
         fi
 
         ___ignore=-1
-        if [ $(HestiaKERNEL_Is_Number "$4") -eq $HestiaKERNEL_ERROR_OK ]; then
+        if [ $(HestiaKERNEL_NUMBER_Is_Number "$4") -eq $HestiaKERNEL_ERROR_OK ]; then
                 ___ignore="$4"
         fi
 

@@ -9,7 +9,6 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Is_Unicode.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Number\Is_Number.ps1"
 
 
 

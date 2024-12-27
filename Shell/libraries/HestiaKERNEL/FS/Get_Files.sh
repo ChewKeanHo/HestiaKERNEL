@@ -33,7 +33,7 @@ HestiaKERNEL_FS_Get_Files() {
         # execute
         for ____item in "$1"/*; do
                 if [ $(HestiaKERNEL_FS_Is_Directory "$____item") -eq $HestiaKERNEL_ERROR_OK ]; then
-                        if [ $(HestiaKERNEL_Is_Number "$3") -ne $HestiaKERNEL_ERROR_OK ]; then
+                        if [ $(HestiaKERNEL_NUMBER_Is_Number "$3") -ne $HestiaKERNEL_ERROR_OK ]; then
                                 continue
                         fi
 
