@@ -14,7 +14,7 @@
 
 
 
-HestiaKERNEL_Run_Parallel_Sentinel() {
+HestiaKERNEL_PARALLELISM_Run_Sentinel() {
         #____parallel_command="$1"
         #____parallel_control_directory="$2"
         #____parallel_available="$3"

@@ -13,7 +13,7 @@
 
 
 
-function HestiaKERNEL-Run-Parallel-Sentinel {
+function HestiaKERNEL-PARALLELISM-Run-Sentinel {
         param(
                 [string]$____parallel_command,
                 [string]$____parallel_control_directory,
