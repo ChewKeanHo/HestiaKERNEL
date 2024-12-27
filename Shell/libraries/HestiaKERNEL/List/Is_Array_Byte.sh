@@ -16,7 +16,7 @@
 
 
 
-HestiaKERNEL_Is_Array_Byte() {
+HestiaKERNEL_LIST_Is_Array_Byte() {
         #___input="$1"
 
 
@@ -26,7 +26,7 @@ HestiaKERNEL_Is_Array_Byte() {
                 return $HestiaKERNEL_ERROR_DATA_EMPTY
         fi
 
-        if [ "$(HestiaKERNEL_Is_Array_Number "$1")" -ne $HestiaKERNEL_ERROR_OK ]; then
+        if [ "$(HestiaKERNEL_LIST_Is_Array_Number "$1")" -ne $HestiaKERNEL_ERROR_OK ]; then
                 printf -- "%d" $HestiaKERNEL_ERROR_DATA_INVALID
                 return $HestiaKERNEL_ERROR_DATA_INVALID
         fi

@@ -27,7 +27,7 @@ function HestiaKERNEL-Is-Unicode {
 
 
         # execute
-        if ($(HestiaKERNEL-Is-Array-Number $___content) -ne ${env:HestiaKERNEL_ERROR_OK}) {
+        if ($(HestiaKERNEL-LIST-Is-Array-Number $___content) -ne ${env:HestiaKERNEL_ERROR_OK}) {
                 return ${env:HestiaKERNEL_ERROR_DATA_INVALID}
         }
 

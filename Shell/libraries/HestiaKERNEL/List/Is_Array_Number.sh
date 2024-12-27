@@ -14,7 +14,7 @@
 
 
 
-HestiaKERNEL_Is_Array_Number() {
+HestiaKERNEL_LIST_Is_Array_Number() {
         #___input="$1"
 
 

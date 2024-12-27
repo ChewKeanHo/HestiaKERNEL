@@ -28,7 +28,7 @@ HestiaKERNEL_To_Unicode_From_UTF8() {
                 return $HestiaKERNEL_ERROR_DATA_EMPTY
         fi
 
-        if [ "$(HestiaKERNEL_Is_Array_Byte "$1")" -ne $HestiaKERNEL_ERROR_OK ]; then
+        if [ "$(HestiaKERNEL_LIST_Is_Array_Byte "$1")" -ne $HestiaKERNEL_ERROR_OK ]; then
                 printf -- ""
                 return $HestiaKERNEL_ERROR_DATA_INVALID
         fi

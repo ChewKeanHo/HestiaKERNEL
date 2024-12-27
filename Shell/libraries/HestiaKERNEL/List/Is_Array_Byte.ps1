@@ -14,7 +14,7 @@
 
 
 
-function HestiaKERNEL-Is-Array-Byte {
+function HestiaKERNEL-LIST-Is-Array-Byte {
         param (
                 [byte[]]$___content
         )
@@ -25,7 +25,7 @@ function HestiaKERNEL-Is-Array-Byte {
                 return ${env:HestiaKERNEL_ERROR_DATA_EMPTY}
         }
 
-        if ($(HestiaKERNEL-Is-Array-Number $___content) -ne ${env:HestiaKERNEL_ERROR_OK}) {
+        if ($(HestiaKERNEL-LIST-Is-Array-Number $___content) -ne ${env:HestiaKERNEL_ERROR_OK}) {
                 return ${env:HestiaKERNEL_ERROR_DATA_INVALID}
         }
 

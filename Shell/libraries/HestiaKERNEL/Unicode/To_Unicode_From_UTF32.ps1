@@ -28,7 +28,7 @@ function HestiaKERNEL-To-Unicode-From-UTF32 {
                 return [uint32[]]@()
         }
 
-        if ($(HestiaKERNEL-Is-Array-Byte $___input_content) -ne ${env:HestiaKERNEL_ERROR_OK}) {
+        if ($(HestiaKERNEL-LIST-Is-Array-Byte $___input_content) -ne ${env:HestiaKERNEL_ERROR_OK}) {
                 return [uint32[]]@()
         }
 

@@ -14,7 +14,7 @@
 
 
 
-function HestiaKERNEL-Is-Array-Number {
+function HestiaKERNEL-LIST-Is-Array-Number {
         param (
                 [object]$___content
         )
