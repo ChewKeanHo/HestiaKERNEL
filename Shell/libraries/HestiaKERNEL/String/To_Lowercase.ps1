@@ -9,34 +9,37 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 . "${env:LIBS_HESTIA}\HestiaKERNEL\String\From_Unicode.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Get_First_Unicode.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\To_Lowercase_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\To_Unicode_From_String.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Unicode.ps1"
 
 
 
 
-function HestiaKERNEL-STRING-Get-First-Character {
+function HestiaKERNEL-STRING-To-Lowercase {
         param (
-                [string]$___input_string
+                [string]$___input,
+                [string]$___locale
         )
 
 
         # validate input
-        if ($___input_string -eq "") {
+        if ($___input -eq "") {
                 return ""
         }
 
 
         # execute
-        $___unicodes = HestiaKERNEL-To-Unicode-From-String $___input_string
-        if ($___unicodes.Length -le 0) {
-                return ""
+        $___content = HestiaKERNEL-To-Unicode-From-String $___input
+        if ($___content.Length -eq 0) {
+                return $___input
         }
 
-        $___unicode = HestiaKERNEL-Get-First-Unicode $___unicodes
+        $___content = HestiaKERNEL-To-Lowercase-Unicode $___content
+        if ($___content.Length -eq 0) {
+                return $___input
+        }
 
 
-        # execute
-        return HestiaKERNEL-STRING-From-Unicode $___unicode
+        # report status
+        return HestiaKERNEL-STRING-From-Unicode $___content
 }

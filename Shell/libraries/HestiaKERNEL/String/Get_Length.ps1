@@ -8,15 +8,13 @@
 #
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
-. "${env:LIBS_HESTIA}\HestiaKERNEL\String\From_Unicode.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Get_First_Unicode.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Get_Length_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\To_Unicode_From_String.ps1"
-. "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Unicode.ps1"
 
 
 
 
-function HestiaKERNEL-STRING-Get-First-Character {
+function HestiaKERNEL-STRING-Get-Length {
         param (
                 [string]$___input_string
         )
@@ -24,19 +22,15 @@ function HestiaKERNEL-STRING-Get-First-Character {
 
         # validate input
         if ($___input_string -eq "") {
-                return ""
+                return 0
         }
 
 
         # execute
         $___unicodes = HestiaKERNEL-To-Unicode-From-String $___input_string
         if ($___unicodes.Length -le 0) {
-                return ""
+                return 0
         }
 
-        $___unicode = HestiaKERNEL-Get-First-Unicode $___unicodes
-
-
-        # execute
-        return HestiaKERNEL-STRING-From-Unicode $___unicode
+        return HestiaKERNEL-Get-Length-Unicode $___unicodes
 }

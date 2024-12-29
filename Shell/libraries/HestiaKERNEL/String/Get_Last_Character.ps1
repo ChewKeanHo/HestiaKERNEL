@@ -8,7 +8,7 @@
 #
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
-. "${env:LIBS_HESTIA}\HestiaKERNEL\String\To_String_From_Unicode.ps1"
+. "${env:LIBS_HESTIA}\HestiaKERNEL\String\From_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Get_Last_Unicode.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\To_Unicode_From_String.ps1"
 . "${env:LIBS_HESTIA}\HestiaKERNEL\Unicode\Unicode.ps1"
@@ -16,7 +16,7 @@
 
 
 
-function HestiaKERNEL-Get-Last-Character {
+function HestiaKERNEL-STRING-Get-Last-Character {
         param (
                 [string]$___input_string
         )
@@ -38,5 +38,5 @@ function HestiaKERNEL-Get-Last-Character {
 
 
         # execute
-        return HestiaKERNEL-To-String-From-Unicode $___unicode
+        return HestiaKERNEL-STRING-From-Unicode $___unicode
 }

@@ -10,21 +10,19 @@
 # You MUST ensure any interaction with the content STRICTLY COMPLIES with
 # the permissions and limitations set forth in the license.
 . "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/String/From_Unicode.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Get_Last_Unicode.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Get_Length_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_Unicode_From_String.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Unicode.sh"
 
 
 
 
-HestiaKERNEL_STRING_Get_Last_Character() {
+HestiaKERNEL_STRING_Get_Length() {
         #___input_string="$1"
 
 
         # validate input
         if [ "$1" = "" ]; then
-                printf -- ""
+                printf -- "%d" "0"
                 return $HestiaKERNEL_ERROR_DATA_EMPTY
         fi
 
@@ -32,15 +30,11 @@ HestiaKERNEL_STRING_Get_Last_Character() {
         # execute
         ___unicodes="$(HestiaKERNEL_To_Unicode_From_String "$1")"
         if [ "$___unicodes" = "" ]; then
-                printf -- ""
+                printf -- "%d" "0"
                 return $HestiaKERNEL_ERROR_DATA_INVALID
         fi
 
-        ___unicode="$(HestiaKERNEL_Get_Last_Unicode "$___unicodes")"
-        printf -- "%s" "$(HestiaKERNEL_STRING_From_Unicode "$___unicode")"
-        if [ $? -ne $HestiaKERNEL_ERROR_OK ]; then
-                return $HestiaKERNEL_ERROR_BAD_EXEC
-        fi
+        printf -- "%d" "$(HestiaKERNEL_Get_Length_Unicode "$___unicodes")"
 
 
         # report status

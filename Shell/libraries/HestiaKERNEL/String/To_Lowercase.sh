@@ -11,15 +11,15 @@
 # the permissions and limitations set forth in the license.
 . "${LIBS_HESTIA}/HestiaKERNEL/Error/Codes.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/String/From_Unicode.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Get_Last_Unicode.sh"
+. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_Lowercase_Unicode.sh"
 . "${LIBS_HESTIA}/HestiaKERNEL/Unicode/To_Unicode_From_String.sh"
-. "${LIBS_HESTIA}/HestiaKERNEL/Unicode/Unicode.sh"
 
 
 
 
-HestiaKERNEL_STRING_Get_Last_Character() {
-        #___input_string="$1"
+HestiaKERNEL_STRING_To_Lowercase() {
+        #___input="$1"
+        #___locale="$2"
 
 
         # validate input
@@ -30,19 +30,26 @@ HestiaKERNEL_STRING_Get_Last_Character() {
 
 
         # execute
-        ___unicodes="$(HestiaKERNEL_To_Unicode_From_String "$1")"
-        if [ "$___unicodes" = "" ]; then
-                printf -- ""
+        ___content="$(HestiaKERNEL_To_Unicode_From_String "$1")"
+        if [ "$___content" = "" ]; then
+                printf -- "%s" "$1"
                 return $HestiaKERNEL_ERROR_DATA_INVALID
         fi
 
-        ___unicode="$(HestiaKERNEL_Get_Last_Unicode "$___unicodes")"
-        printf -- "%s" "$(HestiaKERNEL_STRING_From_Unicode "$___unicode")"
-        if [ $? -ne $HestiaKERNEL_ERROR_OK ]; then
+        ___content="$(HestiaKERNEL_To_Lowercase_Unicode "$___content")"
+        if [ "$___content" = "" ]; then
+                printf -- "%s" "$1"
+                return $HestiaKERNEL_ERROR_BAD_EXEC
+        fi
+
+        ___content="$(HestiaKERNEL_STRING_From_Unicode "$___content")"
+        if [ "$___content" = "" ]; then
+                printf -- "%s" "$1"
                 return $HestiaKERNEL_ERROR_BAD_EXEC
         fi
 
 
         # report status
+        printf -- "%s" "$___content"
         return $HestiaKERNEL_ERROR_OK
 }
